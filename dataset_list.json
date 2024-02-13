@@ -1,0 +1,66 @@
+[
+  {
+    "name": "First",
+    "type": ".tar",
+    "size": "1.2GB",
+    "deal_providers": [
+      {
+        "deal_id": "177596",
+        "storage_provider": "17840"
+      },
+      {
+        "deal_id": "177596",
+        "storage_provider": "17840"
+      },
+      {
+        "deal_id": "177596",
+        "storage_provider": "17840"
+      },
+      {
+        "deal_id": "177596",
+        "storage_provider": "17840"
+      }
+    ],
+    "cid": "QmYTaCnjNrrKCwXzC8ZLiiNJ78rsobXtfKwN8s9qCLBzVA",
+    "slug": "first"
+  },
+  {
+    "name": "General",
+    "type": ".tar",
+    "size": "1.2GB",
+    "deal_providers": [
+      {
+        "deal_id": "177596",
+        "storage_provider": "17840"
+      }
+    ],
+    "cid": "QmYTaCnjNrrKCwXzC8ZLiiNJ78rsobXtfKwN8s9qCLBzVA",
+    "slug": "second"
+  },
+  {
+    "name": "First",
+    "type": ".tar",
+    "size": "1.2GB",
+    "deal_providers": [
+      {
+        "deal_id": "177596",
+        "storage_provider": "17840"
+      }
+    ],
+    "cid": "QmYTaCnjNrrKCwXzC8ZLiiNJ78rsobXtfKwN8s9qCLBzVA",
+    "slug": "first"
+  },
+  {
+    "name": "First",
+    "type": ".tar",
+    "size": "1.2GB",
+    "deal_providers": [
+      {
+        "deal_id": "177596",
+        "storage_provider": "17840"
+      }
+    ],
+    "cid": "QmYTaCnjNrrKCwXzC8ZLiiNJ78rsobXtfKwN8s9qCLBzVA",
+    "slug": "first"
+  }
+]
