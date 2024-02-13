@@ -1,9 +1,6 @@
 <template>
   <section class="table-deals">
-
-    <div
-      v-if="filterValue !== ''"
-      class="filter-description">
+    <div v-if="filterValue !== ''" class="filter-description">
       Showing {{ filteredLength }} results for '{{ filterValue }}'
     </div>
 
@@ -11,14 +8,12 @@
       <!-- ============================================================ Head -->
       <thead class="table-head">
         <tr class="row row-head">
-
           <th
             v-for="(column, index) in columns"
             :key="`heading-${index}`"
             class="cell cell-head"
-            v-html="column.label">
-          </th>
-
+            v-html="column.label"
+          ></th>
         </tr>
       </thead>
       <!-- ============================================================ Body -->
@@ -26,65 +21,68 @@
       <tbody class="table-body">
         <template v-for="deal in filtered">
           <tr
-            :key="deal.rank"
             class="row row-body"
-            @click="navigateToDataset($event, deal.slug)">
-
+            :key="`data-${deal.cid}`"
+            @click="navigateToDataset($event, deal.slug)"
+          >
             <td
               v-for="cell in columns"
               :key="cell.slug"
-              :class="['cell-parent', { hovering: deal.rank === hovering }]">
+              :class="['cell-parent', { hovering: deal.rank === hovering }]"
+            >
+              <DottedBorder v-if="cell.slug === 'size'" />
 
-              <DottedBorder v-if="cell.slug === 'all_data_stored'" />
-
-              <div
-                class="mobile-cell-head"
-                v-html="cell.label">
-              </div>
+              <div class="mobile-cell-head" v-html="cell.label"></div>
               <div :class="['cell cell-body', cell.slug]">
-
-                <template v-if="cell.slug === 'icon'">
-                  <DatasetIcon :icon="deal.slug" />
-                </template>
-
-                <template v-if="cell.slug === 'locations'">
-                  <div class="location-flags">
-                    <span
-                      v-for="(location, index) in deal.locations_stored"
-                      :key="index">
-                      {{ $GetFlagIcon(location) }}
-                    </span>
-                  </div>
-                </template>
-
                 <template v-if="cell.slug === 'dataset_name'">
-                  <nuxt-link
-                    :to="'/' + deal.slug">
-                    {{ getProjectLabels(deal.slug) }}
+                  <nuxt-link :to="'/' + deal.slug">
+                    {{ deal.name }}
                   </nuxt-link>
                 </template>
-
-                <template v-if="cell.slug === 'data_stored'">
-                  <span>{{ $FormatBytes(deal.eligible_data_size, '').value }}</span>
-                  <span class="data-unit">{{ $FormatBytes(deal.eligible_data_size, '').unit }}</span>
+                <template v-if="cell.slug === 'type'">
+                  {{ deal.type }}
                 </template>
-
-                <template v-if="cell.slug === 'all_data_stored'">
-                  <span>{{ $FormatBytes(deal.eligible_data_size, '').value }}</span>
-                  <span class="data-unit">{{ $FormatBytes(deal.eligible_data_size, '').unit }}</span>
+                <template v-if="cell.slug === 'size'">
+                  {{ deal.size }}
                 </template>
+                <div v-if="cell.slug === 'deal_id'">
+                  <template v-for="deal_provider in deal.deal_providers">
+                    <div :key="deal_provider.deal_id">
+                      {{ deal_provider.deal_id }}
+                    </div></template
+                  >
+                </div>
+                <div v-if="cell.slug === 'storage_provider'">
+                  <template v-for="deal_provider in deal.deal_providers">
+                    <div :key="deal_provider.deal_id">
+                      {{ deal_provider.storage_provider }}
+                    </div></template
+                  >
+                </div>
 
-                <template v-if="cell.slug === 'storage_providers'">
-                  {{ deal.miner_list.length }}
+                <!-- <template v-if="cell.slug === 'size'">
+                  <span>{{ $FormatBytes(deal.size, "").value }}</span>
+                  <span class="data-unit">{{
+                    $FormatBytes(deal.size, "").unit
+                  }}</span>
+                </template> -->
+
+                <!-- <template v-if="cell.slug === 'all_data_stored'">
+                  <span>{{
+                    $FormatBytes(deal.eligible_data_size, "").value
+                  }}</span>
+                  <span class="data-unit">{{
+                    $FormatBytes(deal.eligible_data_size, "").unit
+                  }}</span>
+                </template> -->
+
+                <template v-if="cell.slug === 'storage_provider'">
+                  {{ deal.storageProvider }}
                 </template>
-
               </div>
             </td>
-
           </tr>
-          <tr
-            :key="`divider-${deal.rank}`"
-            class="divider" />
+          <tr :key="`divider-${deal.rank}`" class="divider" />
         </template>
       </tbody>
     </table>
@@ -92,93 +90,102 @@
     <div v-if="!filtered" class="no-results-placeholder">
       <span>No results found</span>
     </div>
-
   </section>
 </template>
 
 <script>
 // ===================================================================== Imports
-import { mapGetters } from 'vuex'
-import DatasetIcon from '@/components/icons/dataset-icon'
+import { mapGetters } from "vuex";
+import DatasetIcon from "@/components/icons/dataset-icon";
 
-import DottedBorder from '@/components/dotted-border'
+import DottedBorder from "@/components/dotted-border";
+import dataSetList from "@/dataset_list.json";
+console.log(dataSetList);
 
 // ====================================================================== Export
 export default {
-  name: 'TableDatasetIndex',
+  name: "TableDatasetIndex",
 
   components: {
     DatasetIcon,
-    DottedBorder
+    DottedBorder,
   },
 
   props: {
     columns: {
       type: Array,
-      required: true
+      required: true,
     },
     filterValue: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
 
-  data () {
+  data() {
     return {
-      hovering: false
-    }
+      hovering: false,
+    };
   },
 
   computed: {
     ...mapGetters({
-      datasets: 'explorer/datasetList',
-      datasetNames: 'explorer/datasetNames'
+      datasets: "explorer/datasetList",
+      datasetNames: "explorer/datasetNames",
     }),
-    filtered () {
-      const datasets = this.datasets
-      const source = Object.keys(this.datasetNames.manifest)
-      if (!datasets) { return false }
+    filtered() {
+      const datasets = this.datasets;
+      // const source = Object.keys(this.datasetNames.manifest);
+      if (!datasets) {
+        return false;
+      }
       const filteredByValue = datasets.filter((obj) => {
-        const slug = obj.slug.toLowerCase()
-        const filter = this.filterValue.toLowerCase()
-        if (slug.includes(filter) && source.includes(obj.slug)) {
-          return obj
+        const slug = obj.slug.toLowerCase();
+        const filter = this.filterValue.toLowerCase();
+        if (slug.includes(filter)) {
+          return obj;
         }
-        return false
-      })
-      if (filteredByValue.length === 0) { return false }
-      return filteredByValue
+        return false;
+      });
+      if (filteredByValue.length === 0) {
+        return false;
+      }
+      console.log(filteredByValue[0]);
+      return filteredByValue;
+      // return dataSetList;
     },
-    filteredLength () {
-      const filterLength = this.filtered.length
-      if (filterLength > 0) { return filterLength }
-      return 0
-    }
+    filteredLength() {
+      const filterLength = this.filtered.length;
+      if (filterLength > 0) {
+        return filterLength;
+      }
+      return 0;
+    },
   },
 
   methods: {
-    toggleRowOverlay (status, dealId) {
+    toggleRowOverlay(status, dealId) {
       if (status) {
-        this.hovering = dealId
+        this.hovering = dealId;
       } else {
-        this.hovering = false
+        this.hovering = false;
       }
     },
-    getProjectLabels (slug) {
-      const labels = this.datasetNames.manifest
-      if (labels.hasOwnProperty(slug)) {
-        return labels[slug].label
-      } else {
-        return slug
+    // getProjectLabels(slug) {
+    //   const labels = this.datasetNames.manifest;
+    //   if (labels.hasOwnProperty(slug)) {
+    //     return labels[slug].label;
+    //   } else {
+    //     return slug;
+    //   }
+    // },
+    navigateToDataset(e, slug) {
+      if (e.target.nodeName !== "A") {
+        this.$router.push({ path: `${slug}` });
       }
     },
-    navigateToDataset (e, slug) {
-      if (e.target.nodeName !== 'A') {
-        this.$router.push({ path: `${slug}` })
-      }
-    }
-  }
-}
+  },
+};
 </script>
 
 <style lang="scss" scoped>
@@ -246,13 +253,13 @@ tbody.divider {
 tbody:not(.divider) {
   position: relative;
   &:before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
     width: calc(100% - 10px);
     height: calc(100% - 4px);
-    background: #A9B4CB;
+    background: #a9b4cb;
     opacity: 0.6;
     filter: blur(20px);
   }
@@ -280,7 +287,7 @@ tbody:not(.divider) {
 .cell-parent:first-child {
   &:before,
   &:after {
-    content: '';
+    content: "";
     position: absolute;
     border-radius: 5px;
   }
@@ -308,7 +315,7 @@ tbody:not(.divider) {
   @include mini {
     margin-top: 1rem;
     &:before {
-      content: '';
+      content: "";
       position: absolute;
       z-index: 25;
       left: -0.125rem;
@@ -393,7 +400,7 @@ tr.divider {
   }
   &:before,
   &:after {
-    content: '';
+    content: "";
     position: absolute;
     border-radius: 5px;
   }
@@ -473,7 +480,9 @@ tr.divider {
   }
 }
 
-.data_stored, .all_data_stored, .storage_providers {
+.data_stored,
+.all_data_stored,
+.storage_providers {
   font-family: $font_Secondary;
   @include fontWeight_Regular;
   font-size: 0.875rem;
@@ -483,7 +492,6 @@ tr.divider {
       padding-top: 0.375rem;
     }
   }
-
 }
 
 .dataset {
@@ -512,28 +520,28 @@ tr.divider {
 }
 
 // ////////////////////////////////////////////////////////////// Safari Browser
-@include Safari7Plus ('tbody:not(.divider):before') {
+@include Safari7Plus("tbody:not(.divider):before") {
   display: none;
 }
 
-@include Safari7Plus ('.cell-parent:first-child:before') {
+@include Safari7Plus(".cell-parent:first-child:before") {
   display: none;
 }
 
-@include Safari7Plus ('.cell-parent:first-child:after') {
+@include Safari7Plus(".cell-parent:first-child:after") {
   display: none;
 }
 
-@include Safari7Plus ('.cell-parent:nth-child(3):after') {
+@include Safari7Plus(".cell-parent:nth-child(3):after") {
   display: none;
 }
 
-@include Safari7Plus ('.row-body') {
+@include Safari7Plus(".row-body") {
   background-color: $aquaHaze;
   transition: 100ms ease-out;
 }
 
-@include Safari7Plus ('.row-body:hover') {
+@include Safari7Plus(".row-body:hover") {
   background-color: $mystic;
   transition: 100ms ease-in;
 }

@@ -16,7 +16,8 @@
   "stats_block": {
     "infoblockHeading": "About",
     "resourcesHeading": "Resources",
-    "link_list": [{
+    "link_list": [
+      {
         "label": "Useful Link or external resource one",
         "link": "/"
       },
@@ -34,10 +35,7 @@
       }
     ]
   },
-  "stats": [
-    {"label": "Dataset Size", "type": "byte", "key": "eligible_data_size"},
-    {"label": "Amount stored on Slingshot", "type": "byte", "key": "eligible_data_size"}
-  ],
+  "stats": [{ "label": "Dataset Size", "key": "size" }],
   "filter_bar_placeholder": "Search by dataset, miner, deal ID or CID",
   "table": {
     "searchbar": {
@@ -62,27 +60,42 @@
       { "slug": "deal_id", "label": "Deal ID" },
       { "slug": "miner_id", "label": "Storage Providers" }
     ],
+    "navs": [
+      { "slug": "boost", "label": "Boost" },
+      { "slug": "lassie", "label": "Lassie" },
+      { "slug": "lighthouse", "label": "Lighthouse" },
+      { "slug": "saturn", "label": "Saturn" }
+    ],
     "resulter": {
       "label": {
         "before": "View",
         "after": "Results"
       },
-      "options": [
-        10,
-        20,
-        30,
-        50,
-        100
-      ]
+      "options": [10, 20, 30, 50, 100]
     }
   },
   "modal": {
-    "options": [
-      {
-        "label": "Option One",
-        "helper_text": "Retrieve from this storage provider using the Filecoin lotus client",
-        "command": "lotus client helper retrieve --miner "
+    "options": {
+      "boost": {
+        "label": "Boost",
+        "helper_text": "Retrieve from this storage provider using the Filecoin boost client",
+        "command": "boost retrieve --provider "
+      },
+      "lassie": {
+        "label": "Lassie",
+        "helper_text": "Retrieve from this storage provider using the Filecoin lassie client",
+        "command": "lassie fetch "
+      },
+      "lighthouse": {
+        "label": "Lighthouse",
+        "helper_text": "Retrieve from this storage provider using the Filecoin lighthouse client",
+        "command": "curl https://gateway.lighthouse.storage/ipfs/"
+      },
+      "saturn": {
+        "label": "Saturn",
+        "disabled": true,
+        "helper_text": "Coming soon: Retrieve from Saturn Network's storage provider using the Filecoin client"
       }
-    ]
+    }
   }
 }

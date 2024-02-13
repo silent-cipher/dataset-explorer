@@ -79,24 +79,24 @@
       },
       "columns": [
         {
-          "slug": "icon",
-          "label": "Logo"
+          "label": "Dataset Name",
+          "slug": "dataset_name"
         },
         {
-          "slug": "dataset_name",
-          "label": "Dataset Name"
+          "label": "Type",
+          "slug": "type"
         },
         {
-          "slug": "all_data_stored",
-          "label": "Cumulative<br />Data Stored"
+          "label": "Size",
+          "slug": "size"
         },
         {
-          "slug": "storage_providers",
-          "label": "No. of<br />Storage Providers"
+          "label": "Deal Id",
+          "slug": "deal_id"
         },
         {
-          "slug": "locations",
-          "label": "Locations"
+          "label": "Storage Provider",
+          "slug": "storage_provider"
         }
       ],
       "resulter": {
@@ -104,13 +104,7 @@
           "before": "View",
           "after": "Results"
         },
-        "options": [
-          10,
-          20,
-          30,
-          50,
-          100
-        ]
+        "options": [10, 20, 30, 50, 100]
       }
     }
   }

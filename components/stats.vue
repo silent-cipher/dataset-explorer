@@ -3,17 +3,18 @@
     <div class="grid-center">
       <div class="col-12_md-11_sm-10_mi-12">
         <div class="block-content">
-
           <div class="project-heading">
-            <DatasetIcon :icon="$route.params.id" />
-            <h2>{{ datasetName }}</h2>
+            <!-- <DatasetIcon :icon="$route.params.id" /> -->
+            <h2>{{ dataset.name }}</h2>
           </div>
 
           <div class="grid">
             <div class="col">
               <div class="info-block">
-                <h3>{{ infoblockHeading }}</h3>
-                <p>{{ infoblockText }}</p>
+                <h3>About</h3>
+                <p>
+                  {{ dataset.description }}
+                </p>
               </div>
 
               <div class="stat-list">
@@ -21,38 +22,32 @@
                   <div
                     v-for="(stat, index) in stats"
                     :key="'stat-' + index"
-                    class="col-5_sm-6_ti-10">
+                    class="col-5_sm-6_ti-10"
+                  >
                     <div class="inner-content">
-                      <span class="value">
-                        {{ getStat(stat, 'value') }}
-                      </span>
-                      <span class="label">
-                        {{ getStat(stat, 'label') }}
-                      </span>
+                      <span class="value">{{ dataset[stat.key] }}</span>
+                      <span class="label"> {{ stat.label }}</span>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div
-              v-if="linkList"
-              class="col-5_mi-12">
+            <!-- <div v-if="true" class="col-5_mi-12">
               <div class="resources-block">
                 <h3>{{ resourcesHeading }}</h3>
                 <ul>
                   <li
                     v-for="(resource, index) in linkList"
-                    :key="'link' + index">
-                    <a
-                      :href="resource.link">
+                    :key="'link' + index"
+                  >
+                    <a :href="resource.link">
                       {{ resource.label }}
                     </a>
                   </li>
                 </ul>
               </div>
-            </div>
-
+            </div> -->
           </div>
         </div>
       </div>
@@ -62,73 +57,77 @@
 
 <script>
 // ====================================================================== Imports
-import { mapGetters } from 'vuex'
+import { mapGetters } from "vuex";
 
-import DatasetIcon from '@/components/icons/dataset-icon'
+import DatasetIcon from "@/components/icons/dataset-icon";
 
 // ====================================================================== Export
 export default {
-  name: 'Stats',
+  name: "Stats",
 
   components: {
-    DatasetIcon
+    DatasetIcon,
   },
 
   props: {
-    datasetName: {
-      type: String,
-      required: true
+    dataset: {
+      type: Object,
+      required: true,
     },
     statData: {
       type: Object,
-      required: true
+      required: true,
     },
     stats: {
       type: Array,
-      required: true
-    }
+      required: true,
+    },
   },
 
   computed: {
     ...mapGetters({
-      siteContent: 'global/siteContent',
-      datasetList: 'explorer/datasetNames'
+      siteContent: "global/siteContent",
+      datasetList: "explorer/datasetNames",
     }),
-    slug () {
-      return this.$route.params.id
+    slug() {
+      return this.$route.params.id;
     },
-    blockContent () {
-      return this.siteContent.explorer.stats_block
-    },
-    dataSet () {
-      return this.datasetList.manifest[this.slug]
-    },
-    infoblockHeading () {
-      return this.blockContent.infoblockHeading
-    },
-    infoblockText () {
-      return this.dataSet.description
-    },
-    resourcesHeading () {
-      return 'Resources'
-      // return this.blockContent.resourcesHeading
-    },
-    linkList () {
-      return this.dataSet.resources
-    }
-
+    // blockContent() {
+    //   return this.siteContent.explorer.stats_block;
+    // },
+    // dataSet() {
+    //   return this.datasetList.manifest[this.slug];
+    // },
+    // infoblockHeading() {
+    //   return this.blockContent.infoblockHeading;
+    // },
+    // infoblockText() {
+    //   return this.dataSet.description;
+    // },
+    // resourcesHeading() {
+    //   return "Resources";
+    //   // return this.blockContent.resourcesHeading
+    // },
+    // linkList() {
+    //   return this.dataSet.resources;
+    // },
   },
 
   methods: {
-    getStat (stat, property) {
-      if (property === 'label') { return stat.label }
-      const value = this.statData[stat.key]
-      if (stat.type !== 'byte') { return value.toLocaleString() }
-      const parsed = this.$FormatBytes(parseInt(value), 'array')
-      return `${parsed.value} ${parsed.unit}`
-    }
-  }
-}
+    getStat(stat, property) {
+      console.log(stat, this.statData);
+      if (property === "label") {
+        return stat.label;
+      }
+      const value = this.statData[stat.key];
+      if (stat.type !== "byte") {
+        return value.toLocaleString();
+      }
+      const parsed = this.$FormatBytes(parseInt(value), "array");
+      return `${parsed.value} ${parsed.unit}`;
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
@@ -149,7 +148,8 @@ export default {
   border-radius: 0.3125rem;
   background: $gradient_SilverGrey;
   z-index: 5;
-  box-shadow: 0px 30px 70px rgba(169, 180, 203, 0.3), -2px -2px 0px $white, 0px 3px 5px $mischka, inset 0px -20px 20px rgba(255, 255, 255, 0.2);
+  box-shadow: 0px 30px 70px rgba(169, 180, 203, 0.3), -2px -2px 0px $white,
+    0px 3px 5px $mischka, inset 0px -20px 20px rgba(255, 255, 255, 0.2);
   @include small {
     padding: 2rem 3rem;
   }
@@ -166,7 +166,7 @@ export default {
   }
 }
 
-.project-heading{
+.project-heading {
   display: flex;
   flex-direction: row;
   padding-bottom: 2rem;
@@ -180,7 +180,6 @@ export default {
   h2 {
     @include fontWeight_Semibold;
     font-size: 1.875rem;
-    padding-left: 3rem;
     padding-top: 0.75rem;
     @include mini {
       line-height: 1.4;
@@ -206,7 +205,7 @@ export default {
   }
   p {
     line-height: 1.75;
-     @include small {
+    @include small {
       line-height: 1.4;
     }
   }

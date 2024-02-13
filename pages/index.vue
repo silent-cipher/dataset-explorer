@@ -1,17 +1,14 @@
 <template>
   <div :class="`page page-${tag}`">
-
-    <HeaderIndex
-      class="header"
-      :heading="heading"
-      :subheading="subheading" />
+    <HeaderIndex class="header" :heading="heading" :subheading="subheading" />
     <section id="filter-search">
       <div class="grid">
         <div class="col-9">
           <FilterBar
             :filter-value="filterValue"
             :placeholder="page_filterBarPlaceholder"
-            @setFilterValue="setFilterValue" />
+            @setFilterValue="setFilterValue"
+          />
         </div>
       </div>
     </section>
@@ -21,123 +18,134 @@
           <TableDatasetIndex
             id="blur-trigger"
             :filter-value="filterValue"
-            :columns="tableColumns" />
+            :columns="tableColumns"
+          />
         </div>
       </div>
     </section>
-
   </div>
 </template>
 
 <script>
 // ===================================================================== Imports
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapActions } from "vuex";
 
-import HeaderIndex from '@/components/header-index'
-import TableDatasetIndex from '@/components/table-dataset-index'
+import HeaderIndex from "@/components/header-index";
+import TableDatasetIndex from "@/components/table-dataset-index";
 
-import FileNames from '@/content/data/dataset-explorer-manifest.json'
-import IndexPageData from '@/content/pages/index.json'
+import FileNames from "@/content/data/dataset-explorer-manifest.json";
+import IndexPageData from "@/content/pages/index.json";
 
-import FilterBar from '@/components/filter-bar-old'
+import FilterBar from "@/components/filter-bar-old";
 
 // =================================================================== Functions
 const animateScroll = (instance, name) => {
-  if (name.includes('deals') || name.includes('documentation') || name.includes('retrievals')) {
-    instance.$scrollToElement(instance.$refs.navigation.$el, 500, -120, true)
+  if (
+    name.includes("deals") ||
+    name.includes("documentation") ||
+    name.includes("retrievals")
+  ) {
+    instance.$scrollToElement(instance.$refs.navigation.$el, 500, -120, true);
   } else {
-    instance.$scrollToElement(instance.$refs.info.$el, 500, -120, true)
+    instance.$scrollToElement(instance.$refs.info.$el, 500, -120, true);
   }
-}
+};
 
 // ====================================================================== Export
 export default {
-  name: 'IndexPage',
+  name: "IndexPage",
 
   components: {
     HeaderIndex,
     FilterBar,
-    TableDatasetIndex
+    TableDatasetIndex,
   },
 
-  data () {
+  data() {
     return {
-      tag: 'index'
-    }
+      tag: "index",
+    };
   },
 
-  async fetch ({ store, route, $content }) {
-    await store.dispatch('global/getBaseData', 'general')
-    await store.dispatch('global/getBaseData', { key: 'index', data: IndexPageData })
-    await store.dispatch('explorer/setDatasetNames', FileNames)
-    await store.dispatch('explorer/getExplorerData', { tag: 'index', file: 'dataset_list.json' })
+  async fetch({ store, route, $content }) {
+    await store.dispatch("global/getBaseData", "general");
+    await store.dispatch("global/getBaseData", {
+      key: "index",
+      data: IndexPageData,
+    });
+    await store.dispatch("explorer/setDatasetNames", FileNames);
+    await store.dispatch("explorer/getExplorerData", {
+      tag: "index",
+      file: "dataset_list.json",
+    });
   },
 
-  head () {
-    return this.$CompileSeo(this.$GetSeo(this.tag))
+  head() {
+    return this.$CompileSeo(this.$GetSeo(this.tag));
   },
 
   computed: {
     ...mapGetters({
-      siteContent: 'global/siteContent',
-      datasetList: 'explorer/datasetList',
-      filterValue: 'global/filterValue'
+      siteContent: "global/siteContent",
+      datasetList: "explorer/datasetList",
+      filterValue: "global/filterValue",
     }),
-    pageData () {
-      return this.siteContent[this.tag]
+    pageData() {
+      return this.siteContent[this.tag];
     },
-    pageContent () {
-      return this.pageData.page_content
+    pageContent() {
+      return this.pageData.page_content;
     },
-    heading () {
-      return this.pageContent.fold.heading
+    heading() {
+      return this.pageContent.fold.heading;
     },
-    subheading () {
-      return this.pageContent.fold.subheading
+    subheading() {
+      return this.pageContent.fold.subheading;
     },
-    page_filterBarPlaceholder () {
-      return this.pageContent.table.searchbar.placeholder
+    page_filterBarPlaceholder() {
+      return this.pageContent.table.searchbar.placeholder;
     },
-    tableColumns () {
-      return this.pageContent.table.columns
-    }
+    tableColumns() {
+      console.log(this.pageContent.table.columns[1]);
+      return this.pageContent.table.columns;
+      // return ["Dataset", "Type", "Size", "Dealid", "storage provider"];
+    },
   },
 
   watch: {
-    '$route' (route) {
+    $route(route) {
       this.$nextTick(() => {
-        animateScroll(this)
-        this.setFilterValue('')
-      })
-    }
+        animateScroll(this);
+        this.setFilterValue("");
+      });
+    },
   },
 
-  mounted () {
+  mounted() {
     this.scroll = () => {
       // const element = this.$refs.trigger
-      const element = document.getElementById('trigger')
+      const element = document.getElementById("trigger");
       if (element) {
-        const rect = element.getBoundingClientRect()
-        console.log(rect.top)
-        console.log(window.innerHeight)
-        const elementIsInViewport = (rect.top <= window.innerHeight)
+        const rect = element.getBoundingClientRect();
+        console.log(rect.top);
+        console.log(window.innerHeight);
+        const elementIsInViewport = rect.top <= window.innerHeight;
         if (elementIsInViewport && !this.blurClassToAdd) {
-          this.blurClassToAdd = true
+          this.blurClassToAdd = true;
         }
       }
-    }
-    window.addEventListener('scroll', this.scroll)
+    };
+    window.addEventListener("scroll", this.scroll);
   },
 
-  beforeDestroy () {
-  },
+  beforeDestroy() {},
 
   methods: {
     ...mapActions({
-      setFilterValue: 'global/setFilterValue'
-    })
-  }
-}
+      setFilterValue: "global/setFilterValue",
+    }),
+  },
+};
 </script>
 
 <style lang="scss" scoped>

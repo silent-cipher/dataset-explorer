@@ -5,12 +5,12 @@ export default {
   publicRuntimeConfig: {
     nodeEnv: process.env.NODE_ENV,
     serverEnv: process.env.SERVER_ENV,
-    frontendUrl: 'https://datasets.filecoin.io/',
-    dataUrl: 'https://v2.slingshot.filecoin.io',
+    frontendUrl: "https://datasets.filecoin.io/",
+    dataUrl: "https://v2.slingshot.filecoin.io",
     seo: {
-      siteName: 'Dataset Explorer',
-      siteUrl: ''
-    }
+      siteName: "Dataset Explorer",
+      siteUrl: "",
+    },
   },
   // --------------------------------------------------------- [Runtime] Private
   privateRuntimeConfig: {},
@@ -18,63 +18,57 @@ export default {
   // ---------------------------------------------------------------------------
   server: {
     port: 10030,
-    host: process.env.NODE_ENV !== 'development' ? '0.0.0.0' : 'localhost'
+    host: process.env.NODE_ENV !== "development" ? "0.0.0.0" : "localhost",
   },
   render: {
     bundleRenderer: {
-      runInNewContext: false
-    }
+      runInNewContext: false,
+    },
   },
   // /////////////////////////////////////////////////////// Headers of the Page
   // ---------------------------------------------------------------------------
   head: {
-    title: 'Dataset Explorer',
+    title: "Dataset Explorer",
     meta: [
-      { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' }
+      { charset: "utf-8" },
+      { name: "viewport", content: "width=device-width, initial-scale=1" },
     ],
-    link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon/favicon.ico' }
-    ]
+    link: [{ rel: "icon", type: "image/x-icon", href: "/favicon/favicon.ico" }],
   },
   // ////////////////////////////////////////// Customize the progress-bar color
   // ---------------------------------------------------------------------------
   loading: {
-    color: '#001FE6',
-    height: '7px'
+    color: "#001FE6",
+    height: "7px",
   },
   // /////////////////////////////////////////////////////////// Global CSS/SCSS
   // ---------------------------------------------------------------------------
-  css: [
-    '~/assets/scss/main.scss'
-  ],
+  css: ["~/assets/scss/main.scss"],
   styleResources: {
-    scss: [
-      '~/assets/scss/variables.scss'
-    ]
+    scss: ["~/assets/scss/variables.scss"],
   },
   // /////////////////////////////////////////////////////// Nuxt.js Dev Modules
   // ---------------------------------------------------------------------------
   buildModules: [
     // Doc: https://github.com/nuxt-community/eslint-module
-    '@nuxtjs/eslint-module',
+    "@nuxtjs/eslint-module",
     // Doc: https://github.com/nuxt-community/moment-module#readme
-    '@nuxtjs/moment'
+    "@nuxtjs/moment",
   ],
   // /////////////////////////////////////////////////////////// Nuxt.js Modules
   // ---------------------------------------------------------------------------
   modules: [
     // Doc: https://github.com/nuxt-community/style-resources-module
-    '@nuxtjs/style-resources',
+    "@nuxtjs/style-resources",
     // Doc: https://axios.nuxtjs.org/usage
-    '@nuxtjs/axios',
+    "@nuxtjs/axios",
     // Doc: https://github.com/agency-undone/au-nuxt-module-zero
-    '@agency-undone/au-nuxt-module-zero',
+    "@agency-undone/au-nuxt-module-zero",
     // Doc: https://sitemap.nuxtjs.org
     // '@nuxtjs/sitemap',
     // Doc: https://content.nuxtjs.org
     // '@nuxt/content'
-    '~/modules/Pagination'
+    "~/modules/Pagination",
   ],
   // ///////////////////////////////////////////////////////////// [Module] Zero
   // ---------------------------------------------------------------------------
@@ -83,36 +77,33 @@ export default {
       include: true,
       toaster: {
         display: 10,
-        timeout: 5000
-      }
+        timeout: 5000,
+      },
     },
     filters: {
-      include: true
+      include: true,
     },
     pagination: {
-      include: true
-    }
+      include: true,
+    },
   },
   // ///////////////////////////////////////////////////////// [Module] MomentJS
   // ---------------------- Doc: https://github.com/nuxt-community/moment-module
   moment: {
     timezone: true,
-    defaultTimezone: 'UTC'
+    defaultTimezone: "UTC",
   },
   // ///////////////////////////////////////////////////////////// [Module] Zero
   // ------------------------------------------- Dox: https://sitemap.nuxtjs.org
   sitemap: {
-    hostname: '/'
+    hostname: "/",
   },
   // //////////////////////////////////////////////////////////// [Module] Axios
   // -------------------------------------- See https://axios.nuxtjs.org/options
-  axios: {
-  },
+  axios: {},
   // /////////////////////////////////// Plugins to load before mounting the App
   // ---------------------------------------------------------------------------
-  plugins: [
-    '~/plugins/helpers'
-  ],
+  plugins: ["~/plugins/helpers"],
   // /////////////////////////////////////////////////////// Router + Middleware
   // ---------------------------------------------------------------------------
   router: {},
@@ -122,20 +113,20 @@ export default {
     // ---------------------------------------------------------- Hot Middleware
     hotMiddleware: {
       client: {
-        overlay: false
-      }
+        overlay: false,
+      },
     },
     // -------------------------------------------------------------- Extensions
-    extend (config, ctx) {
+    extend(config, ctx) {
       config.module.rules.push({
         test: /\.md$/,
-        use: 'raw-loader'
-      })
+        use: "raw-loader",
+      });
       config.module.rules.push({
         test: /\.ya?ml$/,
-        type: 'json',
-        use: 'yaml-loader'
-      })
-    }
-  }
-}
+        type: "json",
+        use: "yaml-loader",
+      });
+    },
+  },
+};

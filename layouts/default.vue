@@ -1,85 +1,80 @@
 <template>
   <div class="main-container">
-    <TopBackgroundShapes
-      :blur-change-top="blurChangeTop" />
+    <TopBackgroundShapes :blur-change-top="blurChangeTop" />
 
     <Navigation />
-
-    <Banner />
 
     <nuxt />
 
     <SiteFooter />
 
-    <BottomBackgroundShapes
-      :blur-change-bottom="blurChangeBottom" />
-
+    <BottomBackgroundShapes :blur-change-bottom="blurChangeBottom" />
   </div>
 </template>
 
 <script>
 // ===================================================================== Imports
-import Banner from '@/components/banner'
-import Navigation from '@/components/navigation'
-import SiteFooter from '@/components/site-footer'
-import BottomBackgroundShapes from '@/components/background-shapes-bottom'
-import TopBackgroundShapes from '@/components/background-shapes-top'
+import Banner from "@/components/banner";
+import Navigation from "@/components/navigation";
+import SiteFooter from "@/components/site-footer";
+import BottomBackgroundShapes from "@/components/background-shapes-bottom";
+import TopBackgroundShapes from "@/components/background-shapes-top";
 
 // ====================================================================== Export
 export default {
-  name: 'LayoutDefault',
+  name: "LayoutDefault",
 
   components: {
     Banner,
     Navigation,
     SiteFooter,
     BottomBackgroundShapes,
-    TopBackgroundShapes
+    TopBackgroundShapes,
   },
 
-  data () {
+  data() {
     return {
-      tag: 'index',
+      tag: "index",
       scroll: false,
       blurChangeTop: false,
-      blurChangeBottom: false
-    }
+      blurChangeBottom: false,
+    };
   },
 
-  async fetch ({ store, route, $content }) {
-    await store.dispatch('global/getBaseData', 'general')
+  async fetch({ store, route, $content }) {
+    await store.dispatch("global/getBaseData", "general");
   },
 
-  created () {
-    this.$store.dispatch('global/getBaseData', 'general')
+  created() {
+    this.$store.dispatch("global/getBaseData", "general");
   },
 
-  mounted () {
+  mounted() {
     this.scroll = () => {
-      const topElement = document.getElementById('blur-trigger')
-      const footer = document.getElementById('site-footer')
+      const topElement = document.getElementById("blur-trigger");
+      const footer = document.getElementById("site-footer");
       if (topElement) {
-        const rect = topElement.getBoundingClientRect()
-        const elementIsInViewport = ((rect.top + 40) <= window.innerHeight)
+        const rect = topElement.getBoundingClientRect();
+        const elementIsInViewport = rect.top + 40 <= window.innerHeight;
         if (elementIsInViewport && !this.blurChange) {
-          this.blurChangeTop = true
+          this.blurChangeTop = true;
         } else if (!elementIsInViewport) {
-          this.blurChangeTop = false
+          this.blurChangeTop = false;
         }
       }
       if (footer) {
-        const footerRect = footer.getBoundingClientRect()
-        const footerIsInViewport = ((footerRect.top + 40) <= window.innerHeight)
+        const footerRect = footer.getBoundingClientRect();
+        const footerIsInViewport = footerRect.top + 40 <= window.innerHeight;
         if (footerIsInViewport && !this.blurChange) {
-          this.blurChangeBottom = true
+          this.blurChangeBottom = true;
         } else if (!footerIsInViewport) {
-          this.blurChangeBottom = false
+          this.blurChangeBottom = false;
         }
       }
-    }
-    window.addEventListener('scroll', this.scroll)
-  }
-}
+    };
+    window.addEventListener("scroll", this.scroll);
+  },
+};
 </script>
 
 <style lang="scss" scoped>

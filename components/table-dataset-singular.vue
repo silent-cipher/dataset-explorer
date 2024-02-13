@@ -1,241 +1,216 @@
 <template>
   <section class="table-deals">
+    <!-- ============================================================ Head -->
 
-    <div
-      v-if="filterValue !== ''"
-      class="filter-description">
-      Showing {{ filteredLength }} results for '{{ filterValue }}'
-    </div>
+    <ul class="navs-list">
+      <template v-for="(title, index) in navs">
+        <li
+          :class="{ active: selectedProvider === title.slug }"
+          @click="selectProvider(title.slug)"
+        >
+          {{ title.label }}
+        </li>
+      </template>
+    </ul>
 
-    <table v-if="filtered" class="table-container">
-      <!-- ============================================================ Head -->
-      <thead class="table-head">
-        <tr class="row row-head">
+    <Provider class="deal-modal" :provider="selectedProvider" />
 
-          <th
-            v-for="(column, index) in columns"
-            :key="`heading-${index}`"
-            class="cell cell-head"
-            v-html="column.label">
-          </th>
-
-        </tr>
-      </thead>
-      <!-- ============================================================ Body -->
-      <tbody class="divider" />
-
-      <Modal
-        class="deal-modal"
-        :payload-cid="selectedPayloadCid" />
-
-      <Paginate
+    <!-- <Paginate
         v-if="filtered"
         v-slot="{ paginated }"
         :display="paginationDisplay"
         :collection="filtered"
         root-node="tbody"
-        class="table-body">
+        class="table-body"> -->
 
-        <template v-for="(deal, payloadCid) in paginated">
+    <!-- <template v-for="deal in deals">
+        <tr
+          :key="'row-' + payloadCid"
+          class="row row-body"
+          @click="openModal(deal[0].payload_cid)"
+        >
+          <td
+            v-for="cell in columns"
+            :key="cell.slug"
+            :class="['cell-parent', { hovering: deal.rank === hovering }]"
+          >
+            <DottedBorder v-if="cell.slug === 'all_data_stored'" />
 
-          <tr
-            :key="'row-' + payloadCid"
-            class="row row-body"
-            @click="openModal(deal[0].payload_cid)">
+            <div class="mobile-cell-head" v-html="cell.label"></div>
+            <div :class="['cell cell-body', cell.slug]">
+              <template v-if="cell.slug === 'curated_dataset'">
+                <div class="file_name">
+                  {{ deal[0].curated_dataset }}
+                </div>
+                <div class="cid">
+                  {{ deal[0].payload_cid }}
+                </div>
+              </template>
 
-            <td
-              v-for="cell in columns"
-              :key="cell.slug"
-              :class="['cell-parent', { hovering: deal.rank === hovering }]">
-
-              <DottedBorder v-if="cell.slug === 'all_data_stored'" />
-
-              <div
-                class="mobile-cell-head"
-                v-html="cell.label">
+              <div v-if="cell.slug === 'file_format'">
+                {{ deal[0].file_format }}
               </div>
-              <div :class="['cell cell-body', cell.slug]">
-                <template v-if="cell.slug === 'curated_dataset'">
-                  <div
-                    class="file_name">
-                    {{ deal[0].curated_dataset }}
-                  </div>
-                  <div class="cid">
-                    {{ deal[0].payload_cid }}
+
+              <div v-if="cell.slug === 'data_size'">
+                <span>{{ $FormatBytes(deal[0].data_size, "").value }}</span>
+                <span class="data-unit">{{
+                  $FormatBytes(deal[0].data_size, "").unit
+                }}</span>
+              </div>
+
+              <div v-if="cell.slug === 'deal_id'">
+                <template v-for="dataset in deal">
+                  <div :key="'deal_id-' + dataset.deal_id">
+                    {{ dataset.deal_id }}
                   </div>
                 </template>
+              </div>
 
-                <div v-if="cell.slug === 'file_format'">
-                  {{ deal[0].file_format }}
-                </div>
-
-                <div v-if="cell.slug === 'data_size'">
-                  <span>{{ $FormatBytes(deal[0].data_size, '').value }}</span>
-                  <span class="data-unit">{{ $FormatBytes(deal[0].data_size, '').unit }}</span>
-                </div>
-
-                <div v-if="cell.slug === 'deal_id'">
-                  <template v-for="dataset in deal">
-                    <div
-                      :key="'deal_id-' + dataset.deal_id">
-                      {{ dataset.deal_id }}
-                    </div>
-                  </template>
-                </div>
-
-                <div v-if="cell.slug === 'miner_id'">
-                  <template v-for="dataset in deal">
-                    <div
-                      :key="'miner_id-' + dataset.deal_id + dataset.miner_id">
-                      <span class="miner">{{ dataset.miner_id }}</span><span class="flag">{{ $GetFlagIcon(dataset.location) }}</span>
-                    </div>
-                  </template>
-                </div>
-
-                <div v-if="cell.slug === 'status'">
-                  Active
-                </div>
-
-                <template v-if="cell.slug === 'deal_start_epoch'">
-                  {{ $EpochToDate(deal[0].deal_start_epoch) }}
-                  <div class="date_epoch">
-                    {{ deal[0].deal_start_epoch }}
+              <div v-if="cell.slug === 'miner_id'">
+                <template v-for="dataset in deal">
+                  <div :key="'miner_id-' + dataset.deal_id + dataset.miner_id">
+                    <span class="miner">{{ dataset.miner_id }}</span
+                    ><span class="flag">{{
+                      $GetFlagIcon(dataset.location)
+                    }}</span>
                   </div>
                 </template>
-
               </div>
-            </td>
 
-          </tr>
+              <div v-if="cell.slug === 'status'">Active</div>
 
-          <tr
-            :key="`divider-${payloadCid}`"
-            class="divider" />
+              <template v-if="cell.slug === 'deal_start_epoch'">
+                {{ $EpochToDate(deal[0].deal_start_epoch) }}
+                <div class="date_epoch">
+                  {{ deal[0].deal_start_epoch }}
+                </div>
+              </template>
+            </div>
+          </td>
+        </tr>
 
-        </template>
-      </Paginate>
+        <tr :key="`divider-${payloadCid}`" class="divider" />
+      </template> -->
+    <!-- </Paginate> -->
 
-    </table>
-
-    <div v-if="!filtered" class="no-results-placeholder">
+    <!-- <div v-if="!filtered" class="no-results-placeholder">
       <span>No results found</span>
-    </div>
+    </div> -->
 
-    <div class="grid-center">
+    <!-- <div class="grid-center">
       <div class="col-9">
         <PaginationControls />
       </div>
-    </div>
+    </div> -->
   </section>
 </template>
 
 <script>
 // ===================================================================== Imports
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions, mapGetters } from "vuex";
 
-import Modal from '@/components/modal'
-import Paginate from '@/modules/Pagination/Components/Paginate'
-import PaginationControls from '@/modules/Pagination/Components/Controls'
+import Provider from "@/components/provider";
+import Paginate from "@/modules/Pagination/Components/Paginate";
+import PaginationControls from "@/modules/Pagination/Components/Controls";
 
-import DottedBorder from '@/components/dotted-border'
+import DottedBorder from "@/components/dotted-border";
 
 // ====================================================================== Export
 export default {
-  name: 'TableDatasetSingular',
+  name: "TableDatasetSingular",
 
   components: {
-    Modal,
+    Provider,
     Paginate,
     PaginationControls,
-    DottedBorder
+    DottedBorder,
   },
 
   props: {
-    cids: {
-      type: Object,
-      required: true
-    },
-    columns: {
+    navs: {
       type: Array,
-      required: true
+      required: true,
     },
-    filterValue: {
-      type: String,
-      required: true
-    },
+
     paginationDisplay: {
       type: Number,
       required: false,
-      default: 20
-    }
+      default: 20,
+    },
   },
 
-  data () {
+  data() {
     return {
       hovering: false,
       slideIndex: 0,
-      selectedPayloadCid: false
-    }
+      selectedPayloadCid: false,
+      selectedProvider: "boost",
+    };
   },
 
   computed: {
     ...mapGetters({
-      deals: 'explorer/datasetList',
-      datasetNames: 'explorer/datasetNames',
-      modal: 'global/modal'
+      deals: "explorer/datasetList",
+      datasetNames: "explorer/datasetNames",
+      modal: "global/modal",
     }),
-    filtered () {
-      const cids = Object.values(this.cids)
-      const filter = this.filterValue.toLowerCase()
-      const filteredByValue = cids.filter((group) => {
-        const filtered = group.filter((obj) => {
-          const filename = obj.filename.toLowerCase()
-          const miner = obj.miner_id.toLowerCase()
-          const cid = obj.payload_cid
-          const deal = obj.deal_id
-          if (filename.includes(filter) || miner.includes(filter) || cid.includes(filter) || deal.includes(filter)) {
-            return obj
-          }
-          return false
-        })
-        if (filtered.length === 0) { return false }
-        return filtered
-      })
-      if (filteredByValue.length === 0) { return false }
-      return filteredByValue
-    },
-    filteredLength () {
-      const filterLength = this.filtered.length
-      if (filterLength > 0) { return filterLength }
-      return 0
-    }
+    // filtered () {
+    //   const cids = Object.values(this.cids)
+    //   const filter = this.filterValue.toLowerCase()
+    //   const filteredByValue = cids.filter((group) => {
+    //     const filtered = group.filter((obj) => {
+    //       const filename = obj.filename.toLowerCase()
+    //       const miner = obj.miner_id.toLowerCase()
+    //       const cid = obj.payload_cid
+    //       const deal = obj.deal_id
+    //       if (filename.includes(filter) || miner.includes(filter) || cid.includes(filter) || deal.includes(filter)) {
+    //         return obj
+    //       }
+    //       return false
+    //     })
+    //     if (filtered.length === 0) { return false }
+    //     return filtered
+    //   })
+    //   if (filteredByValue.length === 0) { return false }
+    //   return filteredByValue
+    // },
+    // filteredLength() {
+    //   const filterLength = this.filtered.length;
+    //   if (filterLength > 0) {
+    //     return filterLength;
+    //   }
+    //   return 0;
+    // },
   },
 
   methods: {
     ...mapActions({
-      setModal: 'global/setModal'
+      setModal: "global/setModal",
     }),
-    toggleRowOverlay (status, dealId) {
+    toggleRowOverlay(status, dealId) {
       if (status) {
-        this.hovering = dealId
+        this.hovering = dealId;
       } else {
-        this.hovering = false
+        this.hovering = false;
       }
     },
-    getProjectLabels (slug) {
-      const labels = this.datasetNames.manifest
+    getProjectLabels(slug) {
+      const labels = this.datasetNames.manifest;
       if (labels.hasOwnProperty(slug)) {
-        return labels[slug].label
+        return labels[slug].label;
       } else {
-        return slug
+        return slug;
       }
     },
-    openModal (selectedPayloadCid) {
-      this.selectedPayloadCid = selectedPayloadCid
-      this.setModal(true)
-    }
-  }
-}
+    openModal(selectedPayloadCid) {
+      this.selectedPayloadCid = selectedPayloadCid;
+      this.setModal(true);
+    },
+    selectProvider(provider) {
+      this.selectedProvider = provider;
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
@@ -250,6 +225,30 @@ export default {
   @include fontSize_Mini;
   margin-bottom: 0.5rem;
   font-weight: $fontWeight_Semibold;
+}
+
+.navs-list {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  padding: 0;
+  margin: 1rem 0rem;
+  list-style: none;
+  li {
+    padding: 0.5rem 1rem;
+    background-color: $classicBlue;
+    color: $white;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    &:hover {
+      background-color: $aquaHaze;
+      color: $classicBlue;
+    }
+    &.active {
+      background-color: $aquaHaze;
+      color: $classicBlue;
+    }
+  }
 }
 
 .table-container {
@@ -310,13 +309,13 @@ tbody.divider {
 tbody:not(.divider) {
   position: relative;
   &:before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
     width: calc(100% - 10px);
     height: calc(100% - 4px);
-    background: #A9B4CB;
+    background: #a9b4cb;
     opacity: 0.6;
     filter: blur(20px);
   }
@@ -346,7 +345,7 @@ tbody:not(.divider) {
 .cell-parent:first-child {
   &:before,
   &:after {
-    content: '';
+    content: "";
     position: absolute;
     border-radius: 5px;
   }
@@ -374,7 +373,7 @@ tbody:not(.divider) {
   @include mini {
     margin-top: 1rem;
     &:before {
-      content: '';
+      content: "";
       position: absolute;
       z-index: 25;
       left: -0.125rem;
@@ -463,7 +462,7 @@ tr.divider {
   }
   &:before,
   &:after {
-    content: '';
+    content: "";
     position: absolute;
     border-radius: 5px;
   }
@@ -532,7 +531,7 @@ tr.divider {
   width: 13rem;
 }
 
-.miner_id>div>div {
+.miner_id > div > div {
   display: flex;
   flex-direction: row;
   .miner {
@@ -546,7 +545,11 @@ tr.divider {
   white-space: nowrap;
 }
 
-.data_size, .cid, .deal_id, .miner_id, .date_epoch {
+.data_size,
+.cid,
+.deal_id,
+.miner_id,
+.date_epoch {
   font-family: $font_Secondary;
   @include fontWeight_Regular;
 }
@@ -559,7 +562,7 @@ tr.divider {
   padding-top: 0.375rem;
 }
 
-.data_size>div {
+.data_size > div {
   display: flex;
 }
 
@@ -569,28 +572,28 @@ tr.divider {
 }
 
 // ////////////////////////////////////////////////////////////// Safari Browser
-@include Safari7Plus ('tbody:not(.divider):before') {
+@include Safari7Plus("tbody:not(.divider):before") {
   display: none;
 }
 
-@include Safari7Plus ('.cell-parent:first-child:before') {
+@include Safari7Plus(".cell-parent:first-child:before") {
   display: none;
 }
 
-@include Safari7Plus ('.cell-parent:first-child:after') {
+@include Safari7Plus(".cell-parent:first-child:after") {
   display: none;
 }
 
-@include Safari7Plus ('.cell-parent:nth-child(3):after') {
+@include Safari7Plus(".cell-parent:nth-child(3):after") {
   display: none;
 }
 
-@include Safari7Plus ('.row-body') {
+@include Safari7Plus(".row-body") {
   background-color: $aquaHaze;
   transition: 100ms ease-out;
 }
 
-@include Safari7Plus ('.row-body:hover') {
+@include Safari7Plus(".row-body:hover") {
   background-color: $mystic;
   transition: 100ms ease-in;
 }
