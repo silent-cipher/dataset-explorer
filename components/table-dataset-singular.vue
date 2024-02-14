@@ -236,17 +236,18 @@ export default {
   list-style: none;
   li {
     padding: 0.5rem 1rem;
-    background-color: $classicBlue;
-    color: $white;
+    background-color: $aquaHaze;
+    color: $classicBlue;
+
     border-radius: 0.5rem;
     cursor: pointer;
     &:hover {
-      background-color: $aquaHaze;
-      color: $classicBlue;
+      background-color: $classicBlue;
+      color: $white;
     }
     &.active {
-      background-color: $aquaHaze;
-      color: $classicBlue;
+      background-color: $classicBlue;
+      color: $white;
     }
   }
 }

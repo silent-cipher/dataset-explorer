@@ -80,17 +80,23 @@
       "boost": {
         "label": "Boost",
         "helper_text": "Retrieve from this storage provider using the Filecoin boost client",
-        "command": "boost retrieve --provider "
+        "command": "boost retrieve --provider ",
+        "docs_helper": "Don’t have boost client? Install it from ",
+        "docs_link": "https://boost.filecoin.io/getting-started"
       },
       "lassie": {
         "label": "Lassie",
         "helper_text": "Retrieve from this storage provider using the Filecoin lassie client",
-        "command": "lassie fetch "
+        "command": "lassie fetch ",
+        "docs_helper": "Don’t have lassie client? Install it from ",
+        "docs_link": "https://docs.filecoin.io/basics/how-retrieval-works/basic-retrieval/#install-lassie"
       },
       "lotus": {
         "label": "Lotus",
         "helper_text": "Retrieve from this storage provider using the Filecoin lotus client",
-        "command": "lotus client helper retrieve --miner "
+        "command": "lotus client helper retrieve --miner ",
+        "docs_helper": "Don’t have lotus client? Install it from ",
+        "docs_link": "https://lotus.filecoin.io/lotus/install/prerequisites/"
       },
       "lighthouse": {
         "label": "Lighthouse",
@@ -100,7 +106,8 @@
       "saturn": {
         "label": "Saturn",
         "disabled": true,
-        "helper_text": "Coming soon: Retrieve from Saturn Network's storage provider using the Filecoin client"
+        "helper_text": "You can directly retrieve dataset through Saturn Network.",
+        "docs_link": "https://docs.saturn.tech/fetching-from-saturn#0fd2ebd8ca11499891917dde4c04fc91"
       }
     }
   }

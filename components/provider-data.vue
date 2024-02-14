@@ -7,7 +7,7 @@
           <div class="name">
             {{ option.label }}
           </div>
-          <div class="cid" v-if="option.label != 'Lighthouse'">
+          <div v-if="option.label != 'Lighthouse'" class="cid">
             {{ deal.cids.v1 }}
           </div>
           <div v-if="option.label === 'Lighthouse'">{{ deal.cids.v0 }}</div>
@@ -38,7 +38,7 @@
           <div class="helper-text">
             {{ option.helper_text }}
           </div>
-          <div class="code-snippet" v-if="!option.disabled">
+          <div v-if="!option.disabled" class="code-snippet">
             <CopyButton
               :value="`${option.command}${
                 option.label === 'Boost'
@@ -60,13 +60,44 @@
             <span v-if="option.label !== 'Lotus'">
               {{ option.label === "Lassie" ? lassie_filename : deal.filename }}
             </span>
-            <span class="cid" v-if="option.label !== 'Lighthouse'">
+            <span v-if="option.label !== 'Lighthouse'" class="cid">
               {{ deal.cids.v1 }}
             </span>
 
             <span v-if="option.label === 'Lotus'">
               {{ deal.filename }}
             </span>
+          </div>
+          <button
+            v-if="option.label === 'Saturn'"
+            class="download-btn"
+            @click="downloadFile"
+          >
+            Download
+          </button>
+          <div
+            v-if="option.label != 'Lighthouse' && option.label != 'Saturn'"
+            class="docs-helper"
+          >
+            {{ option.docs_helper
+            }}<a
+              class="docs-link"
+              :href="option.docs_link"
+              target="_blank"
+              referrerpolicy="no-referrer"
+              >here.</a
+            >
+          </div>
+          <div v-if="option.label === 'Saturn'" class="docs-helper">
+            You can also use
+            <a
+              class="docs-link"
+              :href="option.docs_link"
+              target="_blank"
+              referrerpolicy="no-referrer"
+              >Saturn Browser Client</a
+            >
+            to integrate datasets on your projects.
           </div>
         </div>
       </div>
@@ -128,6 +159,20 @@ export default {
     ...mapActions({
       setSliderIndex: "global/setSliderIndex",
     }),
+    downloadFile() {
+      fetch(`https://ipfs.io/ipfs/${this.deal.cids.v1}`)
+        .then((response) => response.blob())
+        .then((blob) => {
+          const url = window.URL.createObjectURL(new Blob([blob]));
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = this.deal.filename;
+          document.body.appendChild(a);
+          a.click();
+          window.URL.revokeObjectURL(url);
+        })
+        .catch((error) => console.error("Error downloading file:", error));
+    },
   },
 };
 </script>
@@ -258,6 +303,23 @@ export default {
   float: right;
 }
 
+.download-btn {
+  padding: 0.5rem 1rem;
+  border-radius: 0.325rem;
+  background-color: $classicBlue;
+  color: $white;
+  cursor: pointer;
+  margin-top: 1rem;
+  @include fontWeight_Regular;
+  font-family: $font_Secondary;
+  font-size: 1rem;
+  transition: color 0.25s ease, background-color 0.25s ease;
+  &:hover {
+    background-color: $fog;
+    color: $classicBlue;
+  }
+}
+
 // /////////////////////////////////////////////////////////////// Toggle Buttons
 .toggle-buttons {
   padding: 2rem 3.875rem 0 3.875rem;
@@ -346,6 +408,15 @@ export default {
     align-items: center;
     justify-content: center;
     display: flex;
+  }
+}
+.docs-helper {
+  @include fontWeight_Regular;
+  line-height: 1.3;
+  margin-top: 1rem;
+  .docs-link {
+    @include fontWeight_Semibold;
+    text-decoration: underline;
   }
 }
 </style>
