@@ -7,9 +7,10 @@
           <div class="name">
             {{ option.label }}
           </div>
-          <div class="cid">
-            {{ deal.cids.v0 }}
+          <div class="cid" v-if="option.label != 'Lighthouse'">
+            {{ deal.cids.v1 }}
           </div>
+          <div v-if="option.label === 'Lighthouse'">{{ deal.cids.v0 }}</div>
         </div>
 
         <div class="storage-deal-id">
@@ -39,24 +40,31 @@
           </div>
           <div class="code-snippet" v-if="!option.disabled">
             <CopyButton
-              :value="
-                option.command +
-                deal.miner_id +
-                ' ' +
-                deal.cids.v1 +
-                ' ' +
-                deal.filename
-              "
+              :value="`${option.command}${
+                option.label === 'Boost'
+                  ? deal.miner_id
+                  : option.label === 'Lighthouse'
+                  ? deal.cids.v0
+                  : ' '
+              }${
+                option.label === 'Lassie'
+                  ? deal.cids.v1
+                  : option.label === 'Boost'
+                  ? deal.cids.v1
+                  : ''
+              } -o ${deal.filename}`"
               class="copy-button"
             />
-            <span>{{ option.command }}</span
-            ><span>{{ deal.miner_id }}</span>
-            <div class="cid">
+            <span>{{ option.command }}</span>
+            <span v-if="option.label === 'Boost'">{{ deal.miner_id }}</span>
+            <span class="cid" v-if="option.label !== 'Lighthouse'">
               {{ deal.cids.v1 }}
-            </div>
-            <div>
+            </span>
+            <span v-if="option.label === 'Lighthouse'">{{ deal.cids.v0 }}</span>
+            <span>-o</span>
+            <span>
               {{ deal.filename }}
-            </div>
+            </span>
           </div>
         </div>
       </div>

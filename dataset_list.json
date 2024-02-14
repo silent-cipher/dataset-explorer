@@ -7,60 +7,9 @@
       {
         "deal_id": "177596",
         "storage_provider": "17840"
-      },
-      {
-        "deal_id": "177596",
-        "storage_provider": "17840"
-      },
-      {
-        "deal_id": "177596",
-        "storage_provider": "17840"
-      },
-      {
-        "deal_id": "177596",
-        "storage_provider": "17840"
       }
     ],
     "cid": "QmYTaCnjNrrKCwXzC8ZLiiNJ78rsobXtfKwN8s9qCLBzVA",
     "slug": "spotify"
-  },
-  {
-    "name": "National Flowers",
-    "type": ".tar",
-    "size": "1.2GB",
-    "deal_providers": [
-      {
-        "deal_id": "177596",
-        "storage_provider": "17840"
-      }
-    ],
-    "cid": "QmYTaCnjNrrKCwXzC8ZLiiNJ78rsobXtfKwN8s9qCLBzVA",
-    "slug": "national_flowers"
-  },
-  {
-    "name": "Coursera",
-    "type": ".tar",
-    "size": "1.2GB",
-    "deal_providers": [
-      {
-        "deal_id": "177596",
-        "storage_provider": "17840"
-      }
-    ],
-    "cid": "QmYTaCnjNrrKCwXzC8ZLiiNJ78rsobXtfKwN8s9qCLBzVA",
-    "slug": "coursera"
-  },
-  {
-    "name": "Air Traffic Landings",
-    "type": ".tar",
-    "size": "1.2GB",
-    "deal_providers": [
-      {
-        "deal_id": "177596",
-        "storage_provider": "17840"
-      }
-    ],
-    "cid": "QmYTaCnjNrrKCwXzC8ZLiiNJ78rsobXtfKwN8s9qCLBzVA",
-    "slug": "air_traffic"
   }
 ]
