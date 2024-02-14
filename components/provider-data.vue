@@ -42,16 +42,10 @@
             <CopyButton
               :value="`${option.command}${
                 option.label === 'Boost'
-                  ? deal.miner_id
+                  ? deal.miner_id + ' ' + deal.cids.v1
                   : option.label === 'Lighthouse'
                   ? deal.cids.v0
-                  : ' '
-              }${
-                option.label === 'Lassie'
-                  ? deal.cids.v1
-                  : option.label === 'Boost'
-                  ? deal.cids.v1
-                  : ''
+                  : deal.cids.v1
               } -o ${deal.filename}`"
               class="copy-button"
             />
