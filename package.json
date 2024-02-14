@@ -10,7 +10,7 @@
   "scripts": {
     "dev": "node_modules/.bin/nuxt",
     "start": "node_modules/.bin/nuxt start",
-    "build": "node_modules/.bin/nuxt build",
+    "build": "npm install;node_modules/.bin/nuxt build",
     "generate": "node_modules/.bin/nuxt generate --fail-on-error",
     "launch": "node_modules/.bin/nuxt build && pm2 restart de-fe"
   },

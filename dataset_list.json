@@ -1,6 +1,6 @@
 [
   {
-    "name": "First",
+    "name": "57,650 Spotify Songs",
     "type": ".tar",
     "size": "1.2GB",
     "deal_providers": [
@@ -22,10 +22,10 @@
       }
     ],
     "cid": "QmYTaCnjNrrKCwXzC8ZLiiNJ78rsobXtfKwN8s9qCLBzVA",
-    "slug": "first"
+    "slug": "spotify"
   },
   {
-    "name": "General",
+    "name": "National Flowers",
     "type": ".tar",
     "size": "1.2GB",
     "deal_providers": [
@@ -35,10 +35,10 @@
       }
     ],
     "cid": "QmYTaCnjNrrKCwXzC8ZLiiNJ78rsobXtfKwN8s9qCLBzVA",
-    "slug": "second"
+    "slug": "national_flowers"
   },
   {
-    "name": "First",
+    "name": "Coursera",
     "type": ".tar",
     "size": "1.2GB",
     "deal_providers": [
@@ -48,10 +48,10 @@
       }
     ],
     "cid": "QmYTaCnjNrrKCwXzC8ZLiiNJ78rsobXtfKwN8s9qCLBzVA",
-    "slug": "first"
+    "slug": "coursera"
   },
   {
-    "name": "First",
+    "name": "Air Traffic Landings",
     "type": ".tar",
     "size": "1.2GB",
     "deal_providers": [
@@ -61,6 +61,6 @@
       }
     ],
     "cid": "QmYTaCnjNrrKCwXzC8ZLiiNJ78rsobXtfKwN8s9qCLBzVA",
-    "slug": "first"
+    "slug": "air_traffic"
   }
 ]

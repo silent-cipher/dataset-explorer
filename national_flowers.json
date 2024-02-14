@@ -1,7 +1,7 @@
 {
-  "name": "General",
-  "description": "The Encyclopedia of DNA Elements (ENCODE) Consortium is an international collaboration of research groups funded by the National Human Genome Research Institute (NHGRI).",
-  "filename": "boost.jpg",
+  "name": "National Flowers",
+  "description": "This data set contains 9 different types of flowers. Your task is to build a machine-learning or deep-learning model that can classify these images as flowers.",
+  "filename": "national_flowers.zip",
   "cids": {
     "v0": "QmYTaCnjNrrKCwXzC8ZLiiNJ78rsobXtfKwN8s9qCLBzVA",
     "v1": "bafkreid5i7i6lt2ikhitlhn6oq7rttsiwjgn5xqy45acttup4c6tpjn6la"

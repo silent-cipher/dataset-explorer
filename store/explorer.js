@@ -1,6 +1,8 @@
 import DatasetList from "@/dataset_list.json";
-import First from "@/first.json";
-import Second from "@/second.json";
+import Spotify from "@/spotify.json";
+import NationalFlowers from "@/national_flowers.json";
+import Coursera from "@/coursera.json";
+import AirTraffic from "@/air_traffic.json";
 // /////////////////////////////////////////////////////////////////////// State
 // -----------------------------------------------------------------------------
 const state = () => ({
@@ -23,6 +25,12 @@ const actions = {
   },
   // /////////////////////////////////////////////////////////// getExplorerData
   async getExplorerData({ commit }, payload) {
+    const Files = {
+      spotify: Spotify,
+      national_flowers: NationalFlowers,
+      coursera: Coursera,
+      air_traffic: AirTraffic,
+    };
     try {
       //   const response = await this.$axios.get(
       //     `${this.$config.dataUrl}/data/dataset-explorer/${payload.file}`
@@ -31,7 +39,7 @@ const actions = {
       if (payload.tag === "index") {
         commit("SET_DATASET_LIST", DatasetList);
       } else if (payload.tag === "singular") {
-        const file = payload.file === "first" ? First : Second;
+        const file = Files[payload.file];
         commit("SET_DATASET_SINGULAR", file);
       }
     } catch (e) {

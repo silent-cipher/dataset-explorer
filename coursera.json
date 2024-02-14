@@ -1,0 +1,13 @@
+{
+  "name": "Coursera",
+  "description": "The Coursera dataset appears to be a collection of information regarding various courses available on the Coursera platform. Each row likely represents a different course, and the dataset contains several attributes describing each course's characteristics, such as title, rating, level, schedule, learning objectives, instructor details, offering institution, keywords, course URL, duration to complete, and the number of reviews.",
+  "filename": "spotify.zip",
+  "cids": {
+    "v0": "QmYTaCnjNrrKCwXzC8ZLiiNJ78rsobXtfKwN8s9qCLBzVA",
+    "v1": "bafkreid5i7i6lt2ikhitlhn6oq7rttsiwjgn5xqy45acttup4c6tpjn6la"
+  },
+  "size": "1.2GB",
+  "miner_id": "t017840",
+  "deal_ids": [177596],
+  "storage_provider": "17840"
+}
