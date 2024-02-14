@@ -12,16 +12,9 @@
             </div>
 
             <div class="markdown-wrapper">
-              <MarkdownParser
-                :markdown="markdown" />
+              <MarkdownParser :markdown="markdown" />
             </div>
             <DottedBorder />
-          </div>
-          <div
-            id="blur-trigger"
-            class="markdown-wrapper">
-            <MarkdownParser
-              :markdown="markdown" />
           </div>
         </div>
       </div>
@@ -31,53 +24,55 @@
 
 <script>
 // ===================================================================== Imports
-import { mapGetters } from 'vuex'
+import { mapGetters } from "vuex";
 
-import MarkdownParser from '@/components/markdown-parser'
+import MarkdownParser from "@/components/markdown-parser";
 
-import AboutPageContent from '@/content/markdown/about.md'
-import AboutPageData from '@/content/pages/about.json'
+import AboutPageContent from "@/content/markdown/about.md";
+import AboutPageData from "@/content/pages/about.json";
 
-import DottedBorder from '@/components/dotted-border'
+import DottedBorder from "@/components/dotted-border";
 // ====================================================================== Export
 export default {
-  name: 'AboutPage',
+  name: "AboutPage",
 
   components: {
     MarkdownParser,
-    DottedBorder
+    DottedBorder,
   },
 
-  data () {
+  data() {
     return {
-      tag: 'about'
-    }
+      tag: "about",
+    };
   },
 
-  async fetch ({ store, route }) {
-    await store.dispatch('global/getBaseData', { key: 'about', data: AboutPageData })
+  async fetch({ store, route }) {
+    await store.dispatch("global/getBaseData", {
+      key: "about",
+      data: AboutPageData,
+    });
   },
 
-  head () {
-    return this.$CompileSeo(this.$GetSeo(this.tag))
+  head() {
+    return this.$CompileSeo(this.$GetSeo(this.tag));
   },
 
   computed: {
     ...mapGetters({
-      siteContent: 'global/siteContent'
+      siteContent: "global/siteContent",
     }),
-    markdown () {
-      return AboutPageContent
+    markdown() {
+      return AboutPageContent;
     },
-    heading () {
-      return this.siteContent[this.tag].page_content.heading
+    heading() {
+      return this.siteContent[this.tag].page_content.heading;
     },
-    featuredImage () {
-      return this.siteContent[this.tag].page_content.featured_image
-    }
-  }
-
-}
+    featuredImage() {
+      return this.siteContent[this.tag].page_content.featured_image;
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
@@ -105,7 +100,7 @@ export default {
   overflow: visible;
   background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect x='6' y='-1.5' width='102.5%25' height='100.5%25' fill='none' stroke='blue' stroke-width='2' stroke-dasharray='1.5%2c 10' stroke-dashoffset='2 0' stroke-linecap='round'/%3e%3c/svg%3e");
   &:before {
-    content: '';
+    content: "";
     position: absolute;
     background-image: url("data:image/svg+xml,%3Csvg width='8' height='8' xmlns='http://www.w3.org/2000/svg'%3E%3Cellipse ry='4' rx='4' cy='4' cx='4' fill='blue'/%3E%3C/svg%3E");
     background-size: contain;
@@ -113,7 +108,7 @@ export default {
     transform: translateY(-50%);
     width: 0.3125rem;
     height: 0.3125rem;
-    left: .22rem;
+    left: 0.22rem;
     top: 0;
     @include small {
       top: 0.25rem;
@@ -123,7 +118,7 @@ export default {
     }
   }
   &:after {
-    content: '';
+    content: "";
     position: absolute;
     bottom: 0;
     left: 0.0625rem;
@@ -180,10 +175,11 @@ export default {
 }
 
 .featured-image-wrapper {
-  background: linear-gradient(131.13deg, #F7F9FA 8.78%, #E2E8EF 94.22%);
+  background: linear-gradient(131.13deg, #f7f9fa 8.78%, #e2e8ef 94.22%);
   border-radius: 0.313rem;
   margin-right: 2rem;
-  box-shadow: 0px 100px 70px rgba(169, 180, 203, 0.3), -3px -3px 0px #FFFFFF, 0px 3px 0px #D6DADF, inset 0px -20px 20px rgba(255, 255, 255, 0.2);
+  box-shadow: 0px 100px 70px rgba(169, 180, 203, 0.3), -3px -3px 0px #ffffff,
+    0px 3px 0px #d6dadf, inset 0px -20px 20px rgba(255, 255, 255, 0.2);
   img {
     filter: blur(1px);
     border-radius: 1rem;

@@ -55,11 +55,6 @@
           "type": "nuxt-link",
           "text": "FAQ",
           "url": "/faq"
-        },
-        {
-          "type": "nuxt-link",
-          "text": "Resources",
-          "url": "/"
         }
       ],
       "info_text": "Explore small-scale datasets stored on the Calibration network."

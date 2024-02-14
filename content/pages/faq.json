@@ -16,23 +16,19 @@
     "accordion_sections": [
       {
         "label": "What types of datasets are stored here?",
-        "content": "Filecoin is particularly suited for storing large-scale datasets, although some smaller datasets can be found here as well. A broad variety of data is ​accessible via this site. This includes telemetry and imaging, historical archives, Creative Commons-licensed media, entertainment archives, scientific research papers, machine learning training sets and more."
+        "content": "Our explorer primarily consists of small-scale datasets, each typically under 32 GB in size. We've intentionally curated these datasets to facilitate seamless usage for builders participating in hackathons and similar events. These datasets encompass a diverse range of use cases, reflecting the breadth of possibilities in today's environment. Our goal is to collect datasets that cover a wide spectrum of general use cases, ensuring that builders have access to the resources they need to bring their ideas to life."
       },
       {
         "label": "How often is the Dataset Explorer updated?",
-        "content": "The datasets are updated in real time, as on-chain deals are made on the Filecoin mainnet. You may see a 10 minute discrepancy between when a deal on the chain becomes sealed and active, and when it's visible on this site."
+        "content": "The Dataset Explorer is updated regularly to ensure that our collection remains comprehensive and up-to-date. We actively incorporate new datasets based on feedback from builders like you and insights gathered by our team."
       },
       {
         "label": "How do I retrieve a file or a dataset?",
-        "content": "At the moment, retrievals must be done via [lotus](https://lotus.filecoin.io/) or other Filecoin tools like Powergate. Once you've found a file you'd like to download, click the code icon to generate a lotus command for its retrieval. Additionally, we're currently working on other retrieval methods that will require less tooling and overhead."
-      },
-      {
-        "label": "Where can I find a specific file from a dataset?",
-        "content": "Browse a dataset or search files by filename in the search bar on any dataset's page. We're also working on building indices of datasets. These will give you the ability to see a tree of files located within each 32 GiB container, which will be especially useful for larger datasets containing numerous smaller files."
+        "content": "Retrieving your desired file or dataset is a straightforward process, facilitated by multiple gateways available on our platform. Depending on your preferences and setup, you have several options: Boost or Lotus Configuration, Lighthouse IPFS Gateway, Lassie Client, etc. Choose the method that best suits your requirements and workflow, and seamlessly access the files and datasets you need for your projects."
       },
       {
         "label": "Can I propose a new dataset to be stored?",
-        "content": "Yes, absolutely. Propose new datasets by [creating an issue](https://github.com/filecoin-project/slingshot/issues/new/choose) on Github. This is currently done under the Slingshot program."
+        "content": "Absolutely! We encourage and welcome your suggestions for new datasets to be added to our repository. Simply fill out the form provided [here](link to the form), and our team will endeavor to bring your proposed dataset onboard. To ensure accessibility and legality, we kindly request that you suggest datasets that are openly sourced, allowing everyone to access them easily."
       }
     ]
   }
