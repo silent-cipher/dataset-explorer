@@ -3,7 +3,7 @@
   "description": "The table named Spotify Million Song Dataset has 57,650 rows and 4 columns, with column names 'artist', 'song', 'link', and 'text', all of which are of string type. It provides a comprehensive collection of data that can be analyzed to gain insights into various aspects of the songs in the Spotify library.",
   "filename": "spotify.csv",
   "cids": {
-    "v0": "QmYTaCnjNrrKCwXzC8ZLiiNJ78rsobXtfKwN8s9qCLBzVA",
+    "v0": "QmNgu1Yk3vL3MPdAJtLA1z3WpARggt64HN4dF9pwRVkUVR",
     "v1": "bafybeigjnxf2h4atzjw5htrqbsxrbla5twvmqcbzlladp7pukaczw25dxa"
   },
   "size": "72.2MB",

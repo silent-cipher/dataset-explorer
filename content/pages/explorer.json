@@ -63,6 +63,7 @@
     "navs": [
       { "slug": "boost", "label": "Boost" },
       { "slug": "lassie", "label": "Lassie" },
+      { "slug": "lotus", "label": "Lotus" },
       { "slug": "lighthouse", "label": "Lighthouse" },
       { "slug": "saturn", "label": "Saturn" }
     ],
@@ -85,6 +86,11 @@
         "label": "Lassie",
         "helper_text": "Retrieve from this storage provider using the Filecoin lassie client",
         "command": "lassie fetch "
+      },
+      "lotus": {
+        "label": "Lotus",
+        "helper_text": "Retrieve from this storage provider using the Filecoin lotus client",
+        "command": "lotus client helper retrieve --miner "
       },
       "lighthouse": {
         "label": "Lighthouse",

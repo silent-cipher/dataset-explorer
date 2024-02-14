@@ -42,21 +42,29 @@
             <CopyButton
               :value="`${option.command}${
                 option.label === 'Boost'
-                  ? deal.miner_id + ' ' + deal.cids.v1
+                  ? deal.miner_id + ' -o ' + deal.filename + ' ' + deal.cids.v1
                   : option.label === 'Lighthouse'
-                  ? deal.cids.v0
-                  : deal.cids.v1
-              } -o ${deal.filename}`"
+                  ? deal.cids.v0 + ' -o ' + deal.filename
+                  : option.label === 'Lotus'
+                  ? deal.miner_id + ' ' + deal.cids.v1 + ' ' + deal.filename
+                  : '-o ' + lassie_filename + ' ' + deal.cids.v1
+              }`"
               class="copy-button"
             />
             <span>{{ option.command }}</span>
-            <span v-if="option.label === 'Boost'">{{ deal.miner_id }}</span>
+            <span v-if="option.label === 'Boost' || option.label === 'Lotus'">{{
+              deal.miner_id
+            }}</span>
+            <span v-if="option.label === 'Lighthouse'">{{ deal.cids.v0 }}</span>
+            <span v-if="option.label !== 'Lotus'">-o</span>
+            <span v-if="option.label !== 'Lotus'">
+              {{ option.label === "Lassie" ? lassie_filename : deal.filename }}
+            </span>
             <span class="cid" v-if="option.label !== 'Lighthouse'">
               {{ deal.cids.v1 }}
             </span>
-            <span v-if="option.label === 'Lighthouse'">{{ deal.cids.v0 }}</span>
-            <span>-o</span>
-            <span>
+
+            <span v-if="option.label === 'Lotus'">
               {{ deal.filename }}
             </span>
           </div>
@@ -108,6 +116,11 @@ export default {
     },
     option() {
       return this.modal_options[this.provider];
+    },
+    lassie_filename() {
+      const name_arr = this.deal.filename.split(".");
+      name_arr[name_arr.length - 1] = "car";
+      return name_arr.join(".");
     },
   },
 
