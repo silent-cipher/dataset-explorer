@@ -14,9 +14,24 @@
       "to": "/"
     },
     "links": [
-      { "type": "nuxt-link", "url": "/", "text": "Home", "class_names": "nav-link center" },
-      { "type": "nuxt-link", "url": "/about", "text": "About", "class_names": "nav-link center" },
-      { "type": "nuxt-link", "url": "/faq", "text": "FAQ", "class_names": "nav-link center" }
+      {
+        "type": "nuxt-link",
+        "url": "/",
+        "text": "Home",
+        "class_names": "nav-link center"
+      },
+      {
+        "type": "nuxt-link",
+        "url": "/about",
+        "text": "About",
+        "class_names": "nav-link center"
+      },
+      {
+        "type": "nuxt-link",
+        "url": "/faq",
+        "text": "FAQ",
+        "class_names": "nav-link center"
+      }
     ],
     "program_details": {
       "to": "/program-details",
@@ -47,7 +62,7 @@
           "url": "/"
         }
       ],
-      "info_text": "Explore the hundreds of large-scale datasets stored globally on the Filecoin network."
+      "info_text": "Explore small-scale datasets stored on the Calibration network."
     }
   },
   "page_404": {
