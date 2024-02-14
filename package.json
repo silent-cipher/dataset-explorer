@@ -15,7 +15,7 @@
     "launch": "node_modules/.bin/nuxt build && pm2 restart de-fe"
   },
   "engines": {
-    "node": ">=16.13.0"
+    "node": "=16.20.2"
   },
   "devDependencies": {
     "@babel/core": "^7.17.3",
