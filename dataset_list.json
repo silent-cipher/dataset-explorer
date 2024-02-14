@@ -1,8 +1,8 @@
 [
   {
     "name": "57,650 Spotify Songs",
-    "type": ".tar",
-    "size": "1.2GB",
+    "type": ".csv",
+    "size": "72.2MB",
     "deal_providers": [
       {
         "deal_id": "177596",
