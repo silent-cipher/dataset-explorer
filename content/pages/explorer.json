@@ -106,7 +106,7 @@
       "saturn": {
         "label": "Saturn",
         "disabled": true,
-        "helper_text": "You can directly retrieve dataset through Saturn Network.",
+        "helper_text": "Directly retrieve dataset through Saturn Network.",
         "docs_link": "https://docs.saturn.tech/fetching-from-saturn#0fd2ebd8ca11499891917dde4c04fc91"
       }
     }

@@ -94,7 +94,7 @@
             >
           </div>
           <div v-if="option.label === 'Saturn'" class="docs-helper">
-            You can also use
+            Use
             <a
               class="docs-link"
               :href="option.docs_link"
