@@ -43,7 +43,7 @@
                   {{ deal.type }}
                 </template>
                 <template v-if="cell.slug === 'size'">
-                  {{ deal.size }}
+                  {{ getFormatSize(Number(deal.size)) }}
                 </template>
                 <div v-if="cell.slug === 'deal_id'">
                   <template v-for="deal_provider in deal.deal_providers">
@@ -183,6 +183,14 @@ export default {
       if (e.target.nodeName !== "A") {
         this.$router.push({ path: `${slug}` });
       }
+    },
+    getFormatSize(size) {
+      const i = Math.floor(Math.log(size) / Math.log(1024));
+      return (
+        (size / Math.pow(1024, i)).toFixed(2) * 1 +
+        " " +
+        ["B", "KB", "MB", "GB", "TB"][i]
+      );
     },
   },
 };

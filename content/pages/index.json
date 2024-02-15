@@ -58,7 +58,7 @@
     ],
     "table": {
       "searchbar": {
-        "placeholder": "Filter by dataset or location"
+        "placeholder": "Filter by dataset"
       },
       "loading_placeholder_text": "Loading data",
       "sorter": {
