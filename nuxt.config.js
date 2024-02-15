@@ -6,7 +6,7 @@ export default {
     nodeEnv: process.env.NODE_ENV,
     serverEnv: process.env.SERVER_ENV,
     frontendUrl: "https://datasets.filecoin.io/",
-    dataUrl: "https://v2.slingshot.filecoin.io",
+    dataUrl: "https://dataset-backend.onrender.com",
     seo: {
       siteName: "Dataset Explorer",
       siteUrl: "",

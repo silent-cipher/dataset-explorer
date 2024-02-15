@@ -17,7 +17,7 @@
           <div class="storage-provider">
             <h5>Storage Provider</h5>
             <div>
-              {{ deal.storage_provider }}
+              {{ deal.storage_provider[0] }}
               <span class="flag">
                 {{ $GetFlagIcon(deal.location) }}
               </span>
@@ -75,6 +75,11 @@
           >
             Download
           </button>
+          <div id="percentage-progress-bar">
+            <span id="percentage">0%</span>
+            <progress id="progress-bar" value="0" max="100" />
+          </div>
+
           <div
             v-if="option.label != 'Lighthouse' && option.label != 'Saturn'"
             class="docs-helper"
@@ -160,7 +165,44 @@ export default {
       setSliderIndex: "global/setSliderIndex",
     }),
     downloadFile() {
+      const percentageProgressBar = document.getElementById(
+        "percentage-progress-bar"
+      );
+      const percentageElement = document.getElementById("percentage");
+      const progressElement = document.getElementById("progress-bar");
+      const downloadBtn = document.querySelector(".download-btn");
+      downloadBtn.style.display = "none";
+      percentageProgressBar.style.display = "block";
       fetch(`https://ipfs.io/ipfs/${this.deal.cids.v1}`)
+        .then((response) => {
+          const contentLength = Number(this.deal.size);
+          let downloaded = 0;
+
+          const reader = response.body.getReader();
+
+          return new ReadableStream({
+            async start(controller) {
+              while (true) {
+                const { done, value } = await reader.read();
+
+                if (done) {
+                  controller.close();
+                  break;
+                }
+
+                downloaded += value.byteLength;
+                const percentage = Math.floor(
+                  (downloaded / contentLength) * 100
+                );
+                percentageElement.textContent = `${percentage}%`;
+                progressElement.value = percentage;
+
+                controller.enqueue(value);
+              }
+            },
+          });
+        })
+        .then((stream) => new Response(stream))
         .then((response) => response.blob())
         .then((blob) => {
           const url = window.URL.createObjectURL(new Blob([blob]));
@@ -170,8 +212,15 @@ export default {
           document.body.appendChild(a);
           a.click();
           window.URL.revokeObjectURL(url);
+          percentageProgressBar.style.display = "none";
+          downloadBtn.style.display = "block";
         })
-        .catch((error) => console.error("Error downloading file:", error));
+        .catch((error) => {
+          percentageProgressBar.style.display = "none";
+          downloadBtn.style.display = "block";
+
+          console.error("Error downloading file:", error);
+        });
     },
   },
 };
@@ -179,6 +228,43 @@ export default {
 
 <style lang="scss" scoped>
 // ///////////////////////////////////////////////////////////////////// General
+
+#percentage-progress-bar {
+  display: none;
+  position: relative;
+  margin-top: 1rem;
+  width: 132px;
+  #progress-bar {
+    width: 200px;
+    height: 50px;
+  }
+  #progress-bar {
+    appearance: none;
+    height: 31px;
+    width: 100%;
+    background-color: #eee;
+    border-radius: 0.325rem;
+    overflow: hidden;
+    &::-webkit-progress-bar {
+      border-radius: 0.325rem;
+      background-color: $white;
+    }
+    &::-webkit-progress-value {
+      background-color: $classicBlue;
+    }
+    &::-moz-progress-bar {
+      background-color: $white;
+    }
+  }
+  #percentage {
+    @include fontSize_Regular;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    color: $fog;
+    transform: translate(-50%, -50%);
+  }
+}
 .modal-slider {
   position: relative;
   @include mini {
@@ -304,10 +390,10 @@ export default {
 }
 
 .download-btn {
-  padding: 0.5rem 1rem;
+  padding: 0.4rem 1.8rem;
   border-radius: 0.325rem;
-  background-color: $classicBlue;
-  color: $white;
+  background-color: $white;
+  color: $classicBlue;
   cursor: pointer;
   margin-top: 1rem;
   @include fontWeight_Regular;
@@ -315,8 +401,8 @@ export default {
   font-size: 1rem;
   transition: color 0.25s ease, background-color 0.25s ease;
   &:hover {
-    background-color: $fog;
-    color: $classicBlue;
+    background-color: $classicBlue;
+    color: $white;
   }
 }
 

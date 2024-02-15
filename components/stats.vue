@@ -25,7 +25,9 @@
                     class="col-5_sm-6_ti-10"
                   >
                     <div class="inner-content">
-                      <span class="value">{{ dataset[stat.key] }}</span>
+                      <span class="value">{{
+                        getFormatSize(dataset[stat.key])
+                      }}</span>
                       <span class="label"> {{ stat.label }}</span>
                     </div>
                   </div>
@@ -125,6 +127,14 @@ export default {
       }
       const parsed = this.$FormatBytes(parseInt(value), "array");
       return `${parsed.value} ${parsed.unit}`;
+    },
+    getFormatSize(size) {
+      const i = Math.floor(Math.log(size) / Math.log(1024));
+      return (
+        (size / Math.pow(1024, i)).toFixed(2) * 1 +
+        " " +
+        ["B", "KB", "MB", "GB", "TB"][i]
+      );
     },
   },
 };

@@ -88,14 +88,10 @@ export default {
   computed: {
     ...mapGetters({
       siteContent: "global/siteContent",
-      datasetNames: "explorer/datasetNames",
       datasetList: "explorer/datasetList",
       cids: "explorer/datasetSingular",
       filterValue: "global/filterValue",
     }),
-    dataNames() {
-      return this.datasetNames;
-    },
     dataset() {
       return this.datasetList;
     },
@@ -116,7 +112,7 @@ export default {
     },
     statData() {
       const dataset = this.datasetList.filter((obj) => {
-        return obj.slug === this.$route.params.cid;
+        return obj.cid === this.$route.params.cid;
       });
       return dataset[0];
     },
@@ -138,7 +134,7 @@ export default {
     const timeout = setTimeout(() => {
       this.loadingText = this.pageData.table.loading_text_secondary;
     }, 5000);
-    await this.getExplorerData({ tag: "singular", file: `${id}` });
+    await this.getExplorerData({ tag: "singular", cid: `${id}` });
     clearTimeout(timeout);
     this.loading = false;
   },

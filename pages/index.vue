@@ -73,7 +73,6 @@ export default {
       key: "index",
       data: IndexPageData,
     });
-    await store.dispatch("explorer/setDatasetNames", FileNames);
     await store.dispatch("explorer/getExplorerData", {
       tag: "index",
       file: "dataset_list.json",

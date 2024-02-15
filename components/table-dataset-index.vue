@@ -23,7 +23,7 @@
           <tr
             class="row row-body"
             :key="`data-${deal.cid}`"
-            @click="navigateToDataset($event, deal.slug)"
+            @click="navigateToDataset($event, deal.cid)"
           >
             <td
               v-for="cell in columns"
@@ -35,7 +35,7 @@
               <div class="mobile-cell-head" v-html="cell.label"></div>
               <div :class="['cell cell-body', cell.slug]">
                 <template v-if="cell.slug === 'dataset_name'">
-                  <nuxt-link :to="'/' + deal.slug">
+                  <nuxt-link :to="'/' + deal.cid">
                     {{ deal.name }}
                   </nuxt-link>
                 </template>
@@ -140,7 +140,7 @@ export default {
         return false;
       }
       const filteredByValue = datasets.filter((obj) => {
-        const slug = obj.slug.toLowerCase();
+        const slug = obj.name.toLowerCase();
         const filter = this.filterValue.toLowerCase();
         if (slug.includes(filter)) {
           return obj;
