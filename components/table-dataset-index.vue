@@ -79,8 +79,6 @@ import { mapGetters } from "vuex";
 import DatasetIcon from "@/components/icons/dataset-icon";
 
 import DottedBorder from "@/components/dotted-border";
-import dataSetList from "@/dataset_list.json";
-console.log(dataSetList);
 
 // ====================================================================== Export
 export default {
