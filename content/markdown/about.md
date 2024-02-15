@@ -17,7 +17,11 @@ Retrieve your desired datasets effortlessly through our user-friendly interface.
   Files that have been pinned by Lighthouse can be downloaded directly from the Lighthouse IPFS gateway.
 
 - #### Lassie Client:
+
   Utilize the Lassie client to retrieve CAR files, which can then be unpacked and utilized according to your specific use case.
+
+- #### ⁠Saturn Tech:
+  Use our explorer to directly download datasets on your device through Saturn's blazing-fast retrieval gateway. Saturn's widget can be used to integrate these datasets on dApps, leading to various interesting use cases.
 
 ### Fuel Your Projects
 

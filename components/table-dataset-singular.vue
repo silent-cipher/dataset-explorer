@@ -1,7 +1,5 @@
 <template>
   <section class="table-deals">
-    <!-- ============================================================ Head -->
-
     <ul class="navs-list">
       <template v-for="(title, index) in navs">
         <li
@@ -12,108 +10,14 @@
         </li>
       </template>
     </ul>
-
     <Provider class="deal-modal" :provider="selectedProvider" />
-
-    <!-- <Paginate
-        v-if="filtered"
-        v-slot="{ paginated }"
-        :display="paginationDisplay"
-        :collection="filtered"
-        root-node="tbody"
-        class="table-body"> -->
-
-    <!-- <template v-for="deal in deals">
-        <tr
-          :key="'row-' + payloadCid"
-          class="row row-body"
-          @click="openModal(deal[0].payload_cid)"
-        >
-          <td
-            v-for="cell in columns"
-            :key="cell.slug"
-            :class="['cell-parent', { hovering: deal.rank === hovering }]"
-          >
-            <DottedBorder v-if="cell.slug === 'all_data_stored'" />
-
-            <div class="mobile-cell-head" v-html="cell.label"></div>
-            <div :class="['cell cell-body', cell.slug]">
-              <template v-if="cell.slug === 'curated_dataset'">
-                <div class="file_name">
-                  {{ deal[0].curated_dataset }}
-                </div>
-                <div class="cid">
-                  {{ deal[0].payload_cid }}
-                </div>
-              </template>
-
-              <div v-if="cell.slug === 'file_format'">
-                {{ deal[0].file_format }}
-              </div>
-
-              <div v-if="cell.slug === 'data_size'">
-                <span>{{ $FormatBytes(deal[0].data_size, "").value }}</span>
-                <span class="data-unit">{{
-                  $FormatBytes(deal[0].data_size, "").unit
-                }}</span>
-              </div>
-
-              <div v-if="cell.slug === 'deal_id'">
-                <template v-for="dataset in deal">
-                  <div :key="'deal_id-' + dataset.deal_id">
-                    {{ dataset.deal_id }}
-                  </div>
-                </template>
-              </div>
-
-              <div v-if="cell.slug === 'miner_id'">
-                <template v-for="dataset in deal">
-                  <div :key="'miner_id-' + dataset.deal_id + dataset.miner_id">
-                    <span class="miner">{{ dataset.miner_id }}</span
-                    ><span class="flag">{{
-                      $GetFlagIcon(dataset.location)
-                    }}</span>
-                  </div>
-                </template>
-              </div>
-
-              <div v-if="cell.slug === 'status'">Active</div>
-
-              <template v-if="cell.slug === 'deal_start_epoch'">
-                {{ $EpochToDate(deal[0].deal_start_epoch) }}
-                <div class="date_epoch">
-                  {{ deal[0].deal_start_epoch }}
-                </div>
-              </template>
-            </div>
-          </td>
-        </tr>
-
-        <tr :key="`divider-${payloadCid}`" class="divider" />
-      </template> -->
-    <!-- </Paginate> -->
-
-    <!-- <div v-if="!filtered" class="no-results-placeholder">
-      <span>No results found</span>
-    </div> -->
-
-    <!-- <div class="grid-center">
-      <div class="col-9">
-        <PaginationControls />
-      </div>
-    </div> -->
   </section>
 </template>
 
 <script>
 // ===================================================================== Imports
-import { mapActions, mapGetters } from "vuex";
 
 import Provider from "@/components/provider";
-import Paginate from "@/modules/Pagination/Components/Paginate";
-import PaginationControls from "@/modules/Pagination/Components/Controls";
-
-import DottedBorder from "@/components/dotted-border";
 
 // ====================================================================== Export
 export default {
@@ -121,9 +25,6 @@ export default {
 
   components: {
     Provider,
-    Paginate,
-    PaginationControls,
-    DottedBorder,
   },
 
   props: {
@@ -141,71 +42,11 @@ export default {
 
   data() {
     return {
-      hovering: false,
-      slideIndex: 0,
-      selectedPayloadCid: false,
       selectedProvider: "boost",
     };
   },
 
-  computed: {
-    ...mapGetters({
-      deals: "explorer/datasetList",
-      datasetNames: "explorer/datasetNames",
-      modal: "global/modal",
-    }),
-    // filtered () {
-    //   const cids = Object.values(this.cids)
-    //   const filter = this.filterValue.toLowerCase()
-    //   const filteredByValue = cids.filter((group) => {
-    //     const filtered = group.filter((obj) => {
-    //       const filename = obj.filename.toLowerCase()
-    //       const miner = obj.miner_id.toLowerCase()
-    //       const cid = obj.payload_cid
-    //       const deal = obj.deal_id
-    //       if (filename.includes(filter) || miner.includes(filter) || cid.includes(filter) || deal.includes(filter)) {
-    //         return obj
-    //       }
-    //       return false
-    //     })
-    //     if (filtered.length === 0) { return false }
-    //     return filtered
-    //   })
-    //   if (filteredByValue.length === 0) { return false }
-    //   return filteredByValue
-    // },
-    // filteredLength() {
-    //   const filterLength = this.filtered.length;
-    //   if (filterLength > 0) {
-    //     return filterLength;
-    //   }
-    //   return 0;
-    // },
-  },
-
   methods: {
-    ...mapActions({
-      setModal: "global/setModal",
-    }),
-    toggleRowOverlay(status, dealId) {
-      if (status) {
-        this.hovering = dealId;
-      } else {
-        this.hovering = false;
-      }
-    },
-    getProjectLabels(slug) {
-      const labels = this.datasetNames.manifest;
-      if (labels.hasOwnProperty(slug)) {
-        return labels[slug].label;
-      } else {
-        return slug;
-      }
-    },
-    openModal(selectedPayloadCid) {
-      this.selectedPayloadCid = selectedPayloadCid;
-      this.setModal(true);
-    },
     selectProvider(provider) {
       this.selectedProvider = provider;
     },
@@ -230,6 +71,7 @@ export default {
 .navs-list {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   gap: 1rem;
   padding: 0;
   margin: 1rem 0rem;

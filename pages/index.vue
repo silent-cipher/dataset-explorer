@@ -33,7 +33,6 @@ import { mapGetters, mapActions } from "vuex";
 import HeaderIndex from "@/components/header-index";
 import TableDatasetIndex from "@/components/table-dataset-index";
 
-import FileNames from "@/content/data/dataset-explorer-manifest.json";
 import IndexPageData from "@/content/pages/index.json";
 
 import FilterBar from "@/components/filter-bar-old";
@@ -105,9 +104,7 @@ export default {
       return this.pageContent.table.searchbar.placeholder;
     },
     tableColumns() {
-      console.log(this.pageContent.table.columns[1]);
       return this.pageContent.table.columns;
-      // return ["Dataset", "Type", "Size", "Dealid", "storage provider"];
     },
   },
 

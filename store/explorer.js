@@ -25,7 +25,7 @@ const actions = {
         const response = await this.$axios.get(
           `${this.$config.dataUrl}/get-all-datasets`
         );
-        console.log(response.data.data);
+        console.log(response.data.data[0].deal_providers);
         const file = response.data.data;
         commit("SET_DATASET_LIST", file);
       } else if (payload.tag === "singular") {

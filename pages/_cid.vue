@@ -1,21 +1,7 @@
 <template>
   <div :class="`page page-${tag}`">
     <HeaderIndex class="header" :heading="heading" :subheading="subheading" />
-
-    <Stats :dataset="cids" :stats="stats" :stat-data="statData" />
-
-    <!-- <section id="filter-search">
-      <div class="grid">
-        <div class="col-9">
-          <FilterBar
-            :filter-value="filterValue"
-            :placeholder="page_filterBarPlaceholder"
-            action="store"
-          />
-        </div>
-      </div>
-    </section> -->
-
+    <Stats :stats="stats" :stat-data="statData" />
     <section id="deals-table">
       <div class="grid">
         <div class="col">
@@ -23,8 +9,7 @@
         </div>
       </div>
     </section>
-
-    <!-- <div v-if="loading" id="dataset-dot-loader" class="grid">
+    <div v-if="loading" id="dataset-dot-loader" class="grid">
       <div class="col">
         <div class="dataset-loading-placeholder">
           <LoaderTripleDot theme="blue" />
@@ -33,7 +18,7 @@
           </div>
         </div>
       </div>
-    </div> -->
+    </div>
   </div>
 </template>
 
@@ -46,9 +31,6 @@ import Stats from "@/components/stats";
 import TableDatasetSingular from "@/components/table-dataset-singular";
 import LoaderTripleDot from "@/components/spinners/triple-dot";
 import Page from "@/content/pages/explorer.json";
-import FileNames from "@/content/data/dataset-explorer-manifest.json";
-
-import FilterBar from "@/components/filter-bar-old";
 
 // ====================================================================== Export
 export default {
@@ -59,7 +41,6 @@ export default {
     Stats,
     TableDatasetSingular,
     LoaderTripleDot,
-    FilterBar,
   },
 
   data() {
@@ -78,12 +59,7 @@ export default {
       tag: "index",
       file: "dataset_list.json",
     });
-    // await store.dispatch('explorer/clearStore')
   },
-
-  // head () {
-  //   return this.$CompileSeo(this.$GetSeo(this.tag))
-  // },
 
   computed: {
     ...mapGetters({
@@ -116,9 +92,6 @@ export default {
       });
       return dataset[0];
     },
-    page_filterBarPlaceholder() {
-      return this.pageData.filter_bar_placeholder;
-    },
     tableColumns() {
       return this.pageData.table.columns;
     },
@@ -144,22 +117,12 @@ export default {
       getExplorerData: "explorer/getExplorerData",
       setFilterValue: "global/setFilterValue",
     }),
-    // getProjectLabels(slug) {
-    //   const labels = this.datasetNames.manifest;
-    //   if (labels.hasOwnProperty(slug)) {
-    //     return labels[slug].label;
-    //   } else {
-    //     return slug;
-    //   }
-    // },
   },
 };
 </script>
 
 <style lang="scss" scoped>
 // ///////////////////////////////////////////////////////////////////// General
-
-// /////////////////////////////////////////////////////////////// [Toolbar] Top
 #filter-search {
   padding-top: 1.25rem;
   padding-bottom: 2.8125;
@@ -170,6 +133,7 @@ export default {
     padding-bottom: 0.75rem;
   }
 }
+// /////////////////////////////////////////////////////////////// [Toolbar] Top
 
 // /////////////////////////////////////////////////////////////////////// Table
 #dataset-dot-loader {

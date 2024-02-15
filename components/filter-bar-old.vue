@@ -1,6 +1,5 @@
 <template>
   <div :class="['filter-bar', { focused }]">
-
     <input
       :value="filterValue"
       :placeholder="placeholder"
@@ -8,76 +7,77 @@
       class="input"
       @input="handleInput"
       @focus="focused = true"
-      @blur="focused = false">
+      @blur="focused = false"
+    />
 
     <div class="icon-container">
       <IconSearch />
     </div>
 
     <DottedBorder />
-
   </div>
 </template>
 
 <script>
 // ===================================================================== Imports
-import { mapActions } from 'vuex'
+import { mapActions } from "vuex";
 
-import IconSearch from '@/components/icons/search'
+import IconSearch from "@/components/icons/search";
 
-import DottedBorder from '@/components/dotted-border'
+import DottedBorder from "@/components/dotted-border";
 
 // ====================================================================== Export
 export default {
-  name: 'FilterBar',
+  name: "FilterBar",
 
   components: {
     IconSearch,
-    DottedBorder
+    DottedBorder,
   },
 
   props: {
     filterValue: {
       type: String,
-      required: true
+      required: true,
     },
     placeholder: {
       type: String,
       required: false,
-      default: 'Filter Rankings'
+      default: "Filter Rankings",
     },
     action: {
       type: String,
       required: false,
-      default: 'emit'
-    }
+      default: "emit",
+    },
   },
 
-  data () {
+  data() {
     return {
-      focused: false
-    }
+      focused: false,
+    };
   },
 
-  created () {
-    this.setFilterValue('')
+  created() {
+    this.setFilterValue("");
   },
 
   methods: {
     ...mapActions({
-      setFilterValue: 'global/setFilterValue'
+      setFilterValue: "global/setFilterValue",
     }),
-    handleInput (e) {
-      const action = this.action
-      const value = e.target.value
-      if (action === 'emit') {
-        this.$emit('setFilterValue', value)
-      } else if (action === 'store') {
-        this.setFilterValue(value)
+    handleInput(e) {
+      const action = this.action;
+      const value = e.target.value;
+      console.log(value);
+      if (action === "emit") {
+        this.$emit("setFilterValue", value);
+      } else if (action === "store") {
+        this.setFilterValue(value);
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
@@ -99,7 +99,7 @@ $dimensions: 2.75rem;
   }
   .input {
     padding: 1rem;
-    -webkit-appearance: none
+    -webkit-appearance: none;
   }
   &:hover {
     ::v-deep .icon-container {
@@ -187,5 +187,4 @@ $dimensions: 2.75rem;
   color: $classicBlue !important;
   padding-left: 1rem;
 }
-
 </style>

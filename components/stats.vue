@@ -4,8 +4,7 @@
       <div class="col-12_md-11_sm-10_mi-12">
         <div class="block-content">
           <div class="project-heading">
-            <!-- <DatasetIcon :icon="$route.params.id" /> -->
-            <h2>{{ dataset.name }}</h2>
+            <h2>{{ statData.name }}</h2>
           </div>
 
           <div class="grid">
@@ -13,7 +12,7 @@
               <div class="info-block">
                 <h3>About</h3>
                 <p>
-                  {{ dataset.description }}
+                  {{ statData.description }}
                 </p>
               </div>
 
@@ -26,7 +25,7 @@
                   >
                     <div class="inner-content">
                       <span class="value">{{
-                        getFormatSize(dataset[stat.key])
+                        getFormatSize(statData[stat.key])
                       }}</span>
                       <span class="label"> {{ stat.label }}</span>
                     </div>
@@ -34,22 +33,6 @@
                 </div>
               </div>
             </div>
-
-            <!-- <div v-if="true" class="col-5_mi-12">
-              <div class="resources-block">
-                <h3>{{ resourcesHeading }}</h3>
-                <ul>
-                  <li
-                    v-for="(resource, index) in linkList"
-                    :key="'link' + index"
-                  >
-                    <a :href="resource.link">
-                      {{ resource.label }}
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </div> -->
           </div>
         </div>
       </div>
@@ -58,24 +41,11 @@
 </template>
 
 <script>
-// ====================================================================== Imports
-import { mapGetters } from "vuex";
-
-import DatasetIcon from "@/components/icons/dataset-icon";
-
 // ====================================================================== Export
 export default {
   name: "Stats",
 
-  components: {
-    DatasetIcon,
-  },
-
   props: {
-    dataset: {
-      type: Object,
-      required: true,
-    },
     statData: {
       type: Object,
       required: true,
@@ -86,48 +56,7 @@ export default {
     },
   },
 
-  computed: {
-    ...mapGetters({
-      siteContent: "global/siteContent",
-      datasetList: "explorer/datasetNames",
-    }),
-    slug() {
-      return this.$route.params.id;
-    },
-    // blockContent() {
-    //   return this.siteContent.explorer.stats_block;
-    // },
-    // dataSet() {
-    //   return this.datasetList.manifest[this.slug];
-    // },
-    // infoblockHeading() {
-    //   return this.blockContent.infoblockHeading;
-    // },
-    // infoblockText() {
-    //   return this.dataSet.description;
-    // },
-    // resourcesHeading() {
-    //   return "Resources";
-    //   // return this.blockContent.resourcesHeading
-    // },
-    // linkList() {
-    //   return this.dataSet.resources;
-    // },
-  },
-
   methods: {
-    getStat(stat, property) {
-      console.log(stat, this.statData);
-      if (property === "label") {
-        return stat.label;
-      }
-      const value = this.statData[stat.key];
-      if (stat.type !== "byte") {
-        return value.toLocaleString();
-      }
-      const parsed = this.$FormatBytes(parseInt(value), "array");
-      return `${parsed.value} ${parsed.unit}`;
-    },
     getFormatSize(size) {
       const i = Math.floor(Math.log(size) / Math.log(1024));
       return (

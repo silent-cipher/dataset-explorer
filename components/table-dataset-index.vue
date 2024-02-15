@@ -59,30 +59,10 @@
                     </div></template
                   >
                 </div>
-
-                <!-- <template v-if="cell.slug === 'size'">
-                  <span>{{ $FormatBytes(deal.size, "").value }}</span>
-                  <span class="data-unit">{{
-                    $FormatBytes(deal.size, "").unit
-                  }}</span>
-                </template> -->
-
-                <!-- <template v-if="cell.slug === 'all_data_stored'">
-                  <span>{{
-                    $FormatBytes(deal.eligible_data_size, "").value
-                  }}</span>
-                  <span class="data-unit">{{
-                    $FormatBytes(deal.eligible_data_size, "").unit
-                  }}</span>
-                </template> -->
-
-                <template v-if="cell.slug === 'storage_provider'">
-                  {{ deal.storageProvider }}
-                </template>
               </div>
             </td>
           </tr>
-          <tr :key="`divider-${deal.rank}`" class="divider" />
+          <tr :key="`divider-${deal.cid}`" class="divider" />
         </template>
       </tbody>
     </table>

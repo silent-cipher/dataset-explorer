@@ -42,20 +42,24 @@
             <CopyButton
               :value="`${option.command}${
                 option.label === 'Boost'
-                  ? deal.miner_id + ' -o ' + deal.filename + ' ' + deal.cids.v1
+                  ? miner_id + ' -o ' + deal.filename + ' ' + deal.cids.v1
                   : option.label === 'Lighthouse'
                   ? deal.cids.v0 + ' -o ' + deal.filename
                   : option.label === 'Lotus'
-                  ? deal.miner_id + ' ' + deal.cids.v1 + ' ' + deal.filename
+                  ? miner_id + ' ' + deal.cids.v1 + ' ' + deal.filename
                   : '-o ' + lassie_filename + ' ' + deal.cids.v1
               }`"
               class="copy-button"
             />
-            <span>{{ option.command }}</span>
-            <span v-if="option.label === 'Boost' || option.label === 'Lotus'">{{
-              deal.miner_id
+            <span :class="option.label === 'Lighthouse' ? 'cid' : ''">{{
+              option.command
             }}</span>
-            <span v-if="option.label === 'Lighthouse'">{{ deal.cids.v0 }}</span>
+            <span v-if="option.label === 'Boost' || option.label === 'Lotus'">{{
+              miner_id
+            }}</span>
+            <span v-if="option.label === 'Lighthouse'" class="cid">{{
+              deal.cids.v0
+            }}</span>
             <span v-if="option.label !== 'Lotus'">-o</span>
             <span v-if="option.label !== 'Lotus'">
               {{ option.label === "Lassie" ? lassie_filename : deal.filename }}
@@ -157,6 +161,9 @@ export default {
       const name_arr = this.deal.filename.split(".");
       name_arr[name_arr.length - 1] = "car";
       return name_arr.join(".");
+    },
+    miner_id() {
+      return this.deal.storage_provider[0];
     },
   },
 
@@ -380,6 +387,8 @@ export default {
   border-radius: 0.325rem;
   padding: 0.5rem 0.75rem;
   margin-top: 1rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
   .cid {
     @include fontSize_Mini;
   }
