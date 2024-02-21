@@ -25,16 +25,13 @@ const actions = {
         const response = await this.$axios.get(
           `${this.$config.dataUrl}/get-all-datasets`
         );
-        console.log(response.data.data[0].deal_providers);
         const file = response.data.data;
         commit("SET_DATASET_LIST", file);
       } else if (payload.tag === "singular") {
         const response = await this.$axios.get(
           `${this.$config.dataUrl}/get-deal/${payload.cid}`
         );
-        console.log("singular");
         const file = response.data.data;
-        console.log(file);
         commit("SET_DATASET_SINGULAR", file);
       }
     } catch (e) {

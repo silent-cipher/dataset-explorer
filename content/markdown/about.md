@@ -29,7 +29,7 @@ Fuel your projects with the power of decentralized data. Train your AI models, b
 
 ### Can't Find Your Desired Dataset? Let Us Know!
 
-Didn't find the dataset you're looking for? Don't worry – we've got you covered. Simply provide us with the details of the dataset you need here, and we will try our best to bring it on-board as soon as possible.
+Didn't find the dataset you're looking for? Don't worry – we've got you covered. Simply provide us with the details of the dataset you need [here](https://forms.gle/3Q8qJgQKHE7vB3RF7), and we will try our best to bring it on-board as soon as possible.
 
 ### Start Building Today
 
