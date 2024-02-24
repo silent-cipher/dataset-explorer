@@ -6,7 +6,7 @@ export default {
     nodeEnv: process.env.NODE_ENV,
     serverEnv: process.env.SERVER_ENV,
     frontendUrl: "https://datasets.filecoin.io/",
-    dataUrl: "https://dataset-backend.onrender.com",
+    dataUrl: "https://dataset-backend.vercel.app",
     seo: {
       siteName: "Dataset Explorer",
       siteUrl: "",

@@ -25,11 +25,12 @@
     "eslint": "^8.3.0",
     "eslint-plugin-nuxt": "^3.0.0",
     "eslint-plugin-promise": "^6.0.0",
+    "firebase-tools": "^13.3.1",
     "raw-loader": "^4.0.2",
     "sass": "^1.43.5",
     "sass-loader": "^10.1.1",
-    "webpack": "^4.46.0",
-    "yaml-loader": "^0.6.0"
+    "vercel": "^33.5.2",
+    "webpack": "^4.46.0"
   },
   "dependencies": {
     "@agency-undone/au-nuxt-module-zero": "^1.0.18",
@@ -38,8 +39,10 @@
     "@nuxtjs/axios": "^5.13.6",
     "@nuxtjs/moment": "^1.6.1",
     "@nuxtjs/style-resources": "^1.2.1",
+    "@vercel/analytics": "^1.2.2",
     "country-code-emoji": "^2.3.0",
     "filesize": "^8.0.7",
+    "firebase": "^10.8.0",
     "kramed": "^0.5.6",
     "nuxt": "^2.15.4"
   }

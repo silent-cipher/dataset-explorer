@@ -99,3 +99,8 @@ awk
 
 # Vim swap files
 *.swp
+.vercel
+.firebase
+.firebaserc
+./app.html
+firebase.json
