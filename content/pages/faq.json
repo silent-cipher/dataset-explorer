@@ -29,6 +29,10 @@
       {
         "label": "Can I propose a new dataset to be stored?",
         "content": "Absolutely! We encourage and welcome your suggestions for new datasets to be added to our repository. Simply fill out the form provided [here](https://forms.gle/3Q8qJgQKHE7vB3RF7), and our team will endeavor to bring your proposed dataset onboard. To ensure accessibility and legality, we kindly request that you suggest datasets that are openly sourced, allowing everyone to access them easily."
+      },
+      {
+        "label": "What happened to the former datasets and previous site?",
+        "content": "The original Filecoin Dataset Explorer website, now accessible at https://legacy.datasets.filecoin.io/, was initially designed to showcase datasets stored on the Filecoin mainnet. These datasets were sourced from initiatives like [Space Race 2: Slingshot](https://slingshot.filecoin.io/) and other sources, presenting them in a unified interface. The primary goal was to provide users with a platform to locate public and open-access datasets within the Filecoin network. \n\nIn February 2024, the site underwent repurposing to cater to smaller-scale datasets stored on the Filecoin Calibration testnet. These datasets are tailored to benefit builders participating in hackathons and similar events, aligning with the evolving needs of the community."
       }
     ]
   }

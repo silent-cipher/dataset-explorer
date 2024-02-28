@@ -39,10 +39,8 @@
     "@nuxtjs/axios": "^5.13.6",
     "@nuxtjs/moment": "^1.6.1",
     "@nuxtjs/style-resources": "^1.2.1",
-    "@vercel/analytics": "^1.2.2",
     "country-code-emoji": "^2.3.0",
     "filesize": "^8.0.7",
-    "firebase": "^10.8.0",
     "kramed": "^0.5.6",
     "nuxt": "^2.15.4"
   }
