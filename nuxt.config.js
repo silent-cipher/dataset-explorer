@@ -109,7 +109,9 @@ export default {
   plugins: ["~/plugins/helpers"],
   // /////////////////////////////////////////////////////// Router + Middleware
   // ---------------------------------------------------------------------------
-  router: {},
+  router: {
+    middleware: "redirects",
+  },
   // /////////////////////////////////////////////////////// Build configuration
   // ------------------------------------------------ Extend webpack config here
   build: {
